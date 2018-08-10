@@ -25,16 +25,18 @@ namespace BudgetCalculator
 
         public int EffectiveDays(BudgetModel b)
         {
+            var otherPeriod = new Period(b.FirstDay(), b.LastDay());
+
             var effectiveStart = Start;
-            if (b.FirstDay() > Start)
+            if (otherPeriod.Start > Start)
             {
-                effectiveStart = b.FirstDay();
+                effectiveStart = otherPeriod.Start;
             }
 
             var effectiveEnd = End;
-            if (b.LastDay() < End)
+            if (otherPeriod.End < End)
             {
-                effectiveEnd = b.LastDay();
+                effectiveEnd = otherPeriod.End;
             }
 
             return CalculateDays(effectiveStart, effectiveEnd);
