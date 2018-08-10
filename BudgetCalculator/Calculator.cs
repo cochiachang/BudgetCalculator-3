@@ -44,30 +44,36 @@ namespace BudgetCalculator
             var totalAmount = 0m;
             foreach (var b in _budgetRepository.GetAll())
             {
-                var effectiveDays = 0;
-                if (IsFirstMonthBudget(b, period))
-                {
-                    var effectiveEnd = b.LastDay();
-                    var effectiveStart = period.Start;
-                    effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
-                }
-                else if (IsLastMonthBudget(b, period))
-                {
-                    var effectiveStart = b.FirstDay();
-                    var effectiveEnd = period.End;
-                    effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
-                }
-                else
-                {
-                    var effectiveStart = b.FirstDay();
-                    var effectiveEnd = b.LastDay();
-                    effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
-                }
+                var effectiveDays = EffectiveDays(b, period);
 
                 totalAmount += b.DailyAmount() * effectiveDays;
             }
 
             return totalAmount;
+        }
+
+        private int EffectiveDays(BudgetModel b, Period period)
+        {
+            var effectiveStart = period.Start;
+            var effectiveEnd = period.End;
+
+            if (IsFirstMonthBudget(b, period))
+            {
+                effectiveEnd = b.LastDay();
+                effectiveStart = period.Start;
+            }
+            else if (IsLastMonthBudget(b, period))
+            {
+                effectiveStart = b.FirstDay();
+                effectiveEnd = period.End;
+            }
+            else
+            {
+                effectiveStart = b.FirstDay();
+                effectiveEnd = b.LastDay();
+            }
+
+            return CalculateDays(effectiveStart, effectiveEnd);
         }
 
         private static bool IsLastMonthBudget(BudgetModel b, Period period)
