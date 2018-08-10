@@ -5,41 +5,22 @@ namespace BudgetCalculator
     public class BudgetModel
     {
         public decimal Budget { get; set; }
-        public int Month => Convert.ToInt16(YearMonth.Substring(4, 2));
-        public int Year => Convert.ToInt16(YearMonth.Substring(0, 4));
         public string YearMonth { get; set; }
-
-        public decimal DailyAmount()
-        {
-            var dailyAmount = Budget / TotalDaysInMonth();
-            return dailyAmount;
-        }
-
-        public DateTime LastDay()
-        {
-            var effectiveEnd = new DateTime(Year, Month, TotalDaysInMonth());
-            return effectiveEnd;
-        }
-
-        public int TotalDaysInMonth()
-        {
-            return DateTime.DaysInMonth(Year, Month);
-        }
-
-        public DateTime FirstDay()
-        {
-            var effectiveStart = new DateTime(Year, Month, 1);
-            return effectiveStart;
-        }
-
-        public Period CreatePeriodByBudget()
-        {
-            return new Period(FirstDay(), LastDay());
-        }
+        private decimal DailyAmount => Budget / TotalDaysInMonth;
+        private DateTime FirstDay => new DateTime(Year, Month, 1);
+        private DateTime LastDay => new DateTime(Year, Month, TotalDaysInMonth);
+        private int Month => Convert.ToInt16(YearMonth.Substring(4, 2));
+        private int TotalDaysInMonth => DateTime.DaysInMonth(Year, Month);
+        private int Year => Convert.ToInt16(YearMonth.Substring(0, 4));
 
         public decimal EffectiveAmount(Period period)
         {
-            return DailyAmount() * period.EffectiveDays(CreatePeriodByBudget());
+            return DailyAmount * period.EffectiveDays(CreatePeriodByBudget());
+        }
+
+        private Period CreatePeriodByBudget()
+        {
+            return new Period(FirstDay, LastDay);
         }
     }
 }
