@@ -7,7 +7,7 @@ namespace BudgetCalculator
     {
         private IBudgetRepository _budgetRepository;
 
-        public void SetData(IBudgetRepository budgetRepository)
+        public Calculator(IBudgetRepository budgetRepository)
         {
             _budgetRepository = budgetRepository;
         }
