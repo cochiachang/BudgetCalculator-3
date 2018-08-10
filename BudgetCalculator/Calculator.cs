@@ -104,15 +104,20 @@ namespace BudgetCalculator
         {
             if (budget != null)
             {
-                var totalDaysInMonth = budget.TotalDaysInMonth();
-                var effectiveEnd = new DateTime(period.Start.Year, period.Start.Month, totalDaysInMonth);
+                var effectiveEnd = new DateTime(period.Start.Year, period.Start.Month, budget.TotalDaysInMonth());
                 var effectiveStart = period.Start;
                 var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
-                var dailyAmount = budget.Budget / totalDaysInMonth;
+                var dailyAmount = DailyAmount(budget);
                 return dailyAmount * effectiveDays;
             }
 
             return 0;
+        }
+
+        private static decimal DailyAmount(BudgetModel budget)
+        {
+            var dailyAmount = budget.Budget / budget.TotalDaysInMonth();
+            return dailyAmount;
         }
 
         private static bool IsMiddleMonthOfPeriod(Period period, BudgetModel budgetModel)
