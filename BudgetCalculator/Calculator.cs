@@ -29,9 +29,16 @@ namespace BudgetCalculator
             var budgets = _budgetRepository.GetAll();
 
             var period = new Period(start, end);
-            var budget = 0M;
+            decimal amountOfMiddleMonths = 0;
+            foreach (var b in _budgetRepository.GetAll())
+            {
+                if (IsMiddleMonthOfPeriod(period, b))
+                {
+                    amountOfMiddleMonths += b.Budget;
+                }
+            }
 
-            var amountOfMiddleMonths = AmountOfMiddleMonths(period);
+            var budget = 0M;
 
             if (start.ToString("yyyyMM") != end.ToString("yyyyMM"))
             {
@@ -63,13 +70,6 @@ namespace BudgetCalculator
             }
 
             return budgetModels.First().Budget / totalDaysInAMonth * days;
-        }
-
-        private decimal AmountOfMiddleMonths(Period period)
-        {
-            return _budgetRepository.GetAll()
-                .Where(b => IsMiddleMonthOfPeriod(period, b))
-                .Sum(b => b.Budget);
         }
 
         private static bool IsMiddleMonthOfPeriod(Period period, BudgetModel budgetModel)
