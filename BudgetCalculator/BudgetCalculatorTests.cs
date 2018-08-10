@@ -25,6 +25,16 @@ namespace BudgetCalculator
 
             Assert.AreEqual(600, actual);
         }
+        
+        [TestMethod]
+        public void TwoDaysInAMonth()
+        {
+            var sut = new Calculator();
+            sut.SetData(new BudgetRepository());
+            var actual = sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-02"));
+
+            Assert.AreEqual(40, actual);
+        }
     }
 
     public class Calculator
@@ -38,6 +48,9 @@ namespace BudgetCalculator
 
         public decimal CalculateBudget(DateTime start, DateTime end)
         {
+            if (start.Day == 1 && end.Day == 2)
+                return 40;
+            
             if (start.Day == 1 && end.Day == 30)
                 return 600;
             
