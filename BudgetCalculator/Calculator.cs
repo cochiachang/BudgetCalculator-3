@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace BudgetCalculator
@@ -15,9 +14,9 @@ namespace BudgetCalculator
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
 
-        public bool IsQueryCrossMonth()
+        public bool IsSingleMonth()
         {
-            return Start.ToString("yyyyMM") != End.ToString("yyyyMM");
+            return Start.ToString("yyyyMM") == End.ToString("yyyyMM");
         }
     }
 
@@ -35,6 +34,13 @@ namespace BudgetCalculator
             var budgets = _budgetRepository.GetAll();
 
             var period = new Period(start, end);
+
+            if (period.IsSingleMonth())
+            {
+                var budget = budgets.FirstOrDefault(model => model.YearMonth == period.Start.ToString("yyyyMM"));
+                return AmountOfSingleMonth(period, budget);
+            }
+
             decimal amountOfMiddleMonths = 0;
             var amountOfFirstMonth = 0m;
             var amountOfLastMonth = 0m;
@@ -55,14 +61,7 @@ namespace BudgetCalculator
                     amountOfLastMonth = AmountOfLastMonth(period, b);
                 }
             }
-
-            if (period.IsQueryCrossMonth())
-            {
-                return amountOfFirstMonth + amountOfLastMonth + amountOfMiddleMonths;
-            }
-
-            var amountOfSingleMonth = AmountOfSingleMonth(period, budgets);
-            return amountOfSingleMonth;
+            return amountOfFirstMonth + amountOfLastMonth + amountOfMiddleMonths;
         }
 
         private static bool IsLastMonthBudget(BudgetModel b, Period period)
@@ -75,19 +74,18 @@ namespace BudgetCalculator
             return model.YearMonth == period.Start.ToString("yyyyMM");
         }
 
-        private decimal AmountOfSingleMonth(Period period, List<BudgetModel> budgets)
+        private decimal AmountOfSingleMonth(Period period, BudgetModel budget)
         {
-            var budgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });
-            if (!budgetModels.Any())
+            if (budget != null)
             {
-                return 0;
+                var days = CalculateDays(period.Start, period.End);
+                var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
+
+                var amountOfSingleMonth = budget.Budget / totalDaysInAMonth * days;
+                return amountOfSingleMonth;
             }
 
-            var days = CalculateDays(period.Start, period.End);
-            var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
-
-            var amountOfSingleMonth = budgetModels.First().Budget / totalDaysInAMonth * days;
-            return amountOfSingleMonth;
+            return 0;
         }
 
         private decimal AmountOfLastMonth(Period period, BudgetModel firstOrDefault)
