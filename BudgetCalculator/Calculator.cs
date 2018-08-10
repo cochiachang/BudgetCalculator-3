@@ -27,7 +27,7 @@ namespace BudgetCalculator
             var totalAmount = 0m;
             foreach (var b in _budgetRepository.GetAll())
             {
-                var effectiveDays = period.EffectiveDays(b);
+                var effectiveDays = period.EffectiveDays(new Period(b.FirstDay(), b.LastDay()));
 
                 totalAmount += b.DailyAmount() * effectiveDays;
             }
