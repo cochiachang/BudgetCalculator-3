@@ -17,5 +17,32 @@ namespace BudgetCalculator
         {
             return Start.ToString("yyyyMM") == End.ToString("yyyyMM");
         }
+
+        public static int CalculateDays(DateTime start, DateTime end)
+        {
+            return (end - start).Days + 1;
+        }
+
+        public int EffectiveDays(BudgetModel b)
+        {
+            var effectiveStart = this.Start;
+            var effectiveEnd = this.End;
+
+            if (b.YearMonth == this.Start.ToString("yyyyMM"))
+            {
+                effectiveEnd = b.LastDay();
+            }
+            else if (b.YearMonth == this.End.ToString("yyyyMM"))
+            {
+                effectiveStart = b.FirstDay();
+            }
+            else
+            {
+                effectiveStart = b.FirstDay();
+                effectiveEnd = b.LastDay();
+            }
+
+            return Period.CalculateDays(effectiveStart, effectiveEnd);
+        }
     }
 }

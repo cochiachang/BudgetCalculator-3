@@ -27,7 +27,7 @@ namespace BudgetCalculator
             var totalAmount = 0m;
             foreach (var b in _budgetRepository.GetAll())
             {
-                var effectiveDays = EffectiveDays(b, period);
+                var effectiveDays = period.EffectiveDays(b);
 
                 totalAmount += b.DailyAmount() * effectiveDays;
             }
@@ -35,45 +35,11 @@ namespace BudgetCalculator
             return totalAmount;
         }
 
-        private int EffectiveDays(BudgetModel b, Period period)
-        {
-            var effectiveStart = period.Start;
-            var effectiveEnd = period.End;
-
-            if (IsFirstMonthBudget(b, period))
-            {
-                effectiveEnd = b.LastDay();
-                effectiveStart = period.Start;
-            }
-            else if (IsLastMonthBudget(b, period))
-            {
-                effectiveStart = b.FirstDay();
-                effectiveEnd = period.End;
-            }
-            else
-            {
-                effectiveStart = b.FirstDay();
-                effectiveEnd = b.LastDay();
-            }
-
-            return CalculateDays(effectiveStart, effectiveEnd);
-        }
-
-        private static bool IsLastMonthBudget(BudgetModel b, Period period)
-        {
-            return b.YearMonth == period.End.ToString("yyyyMM");
-        }
-
-        private static bool IsFirstMonthBudget(BudgetModel model, Period period)
-        {
-            return model.YearMonth == period.Start.ToString("yyyyMM");
-        }
-
         private decimal AmountOfSingleMonth(Period period, BudgetModel budget)
         {
             if (budget != null)
             {
-                var days = CalculateDays(period.Start, period.End);
+                var days = Period.CalculateDays(period.Start, period.End);
                 var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
 
                 var amountOfSingleMonth = budget.Budget / totalDaysInAMonth * days;
@@ -87,11 +53,6 @@ namespace BudgetCalculator
         {
             return budgetModel.YearMonth != period.Start.ToString("yyyyMM") &&
                    budgetModel.YearMonth != period.End.ToString("yyyyMM");
-        }
-
-        private int CalculateDays(DateTime start, DateTime end)
-        {
-            return (end - start).Days + 1;
         }
     }
 }
