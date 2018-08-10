@@ -10,13 +10,8 @@ namespace BudgetCalculator
             End = end;
         }
 
-        public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
-
-        public bool IsSingleMonth()
-        {
-            return Start.ToString("yyyyMM") == End.ToString("yyyyMM");
-        }
+        public DateTime Start { get; private set; }
 
         public int EffectiveDays(Period otherPeriod)
         {
