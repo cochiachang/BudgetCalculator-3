@@ -53,15 +53,23 @@ namespace BudgetCalculator
                 return amountOfFirstMonth + amountOfLastMonth + amountOfMiddleMonths;
             }
 
-            var days = CalculateDays(period.Start, period.End);
-            var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
+            var amountOfSingleMonth = AmountOfSingleMonth(period, budgets);
+            return amountOfSingleMonth;
+        }
+
+        private decimal AmountOfSingleMonth(Period period, List<BudgetModel> budgets)
+        {
             var budgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });
             if (!budgetModels.Any())
             {
                 return 0;
             }
 
-            return budgetModels.First().Budget / totalDaysInAMonth * days;
+            var days = CalculateDays(period.Start, period.End);
+            var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
+
+            var amountOfSingleMonth = budgetModels.First().Budget / totalDaysInAMonth * days;
+            return amountOfSingleMonth;
         }
 
         private decimal AmountOfLastMonth(Period period, List<BudgetModel> budgets)
