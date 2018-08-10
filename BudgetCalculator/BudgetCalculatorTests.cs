@@ -151,7 +151,43 @@ namespace BudgetCalculator
             var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-04-01"));
             Assert.AreEqual(330, actual);
         }
-        
+
+        [TestMethod]
+        public void CrossMonth_20180201_20180701()
+        {
+            Add030406toRepo();
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-07-01"));
+            Assert.AreEqual(2110, actual);
+        }
+
+        [TestMethod]
+        public void CrossMonth_20170201_20190701()
+        {
+            Add030406toRepo();
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2017-02-01"), DateTime.Parse("2019-07-01"));
+            Assert.AreEqual(2110, actual);
+        }
+
+        [TestMethod]
+        public void CrossMonth_20180201_20180615()
+        {
+            Add030406toRepo();
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-06-15"));
+            Assert.AreEqual(1510, actual);
+        }
+
+        [TestMethod]
+        public void CrossMonth_20180331_20180601()
+        {
+            Add030406toRepo();
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-03-31"), DateTime.Parse("2018-06-01"));
+            Assert.AreEqual(650, actual);
+        }
+
     }
 
 
