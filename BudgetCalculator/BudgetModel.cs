@@ -31,5 +31,15 @@ namespace BudgetCalculator
             var effectiveStart = new DateTime(Year, Month, 1);
             return effectiveStart;
         }
+
+        public Period CreatePeriodByBudget()
+        {
+            return new Period(FirstDay(), LastDay());
+        }
+
+        public decimal EffectiveAmount(Period period)
+        {
+            return DailyAmount() * period.EffectiveDays(CreatePeriodByBudget());
+        }
     }
 }
