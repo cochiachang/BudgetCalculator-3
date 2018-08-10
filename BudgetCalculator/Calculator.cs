@@ -3,6 +3,18 @@ using System.Linq;
 
 namespace BudgetCalculator
 {
+    public class Period
+    {
+        public Period(DateTime start, DateTime end)
+        {
+            Start = start;
+            End = end;
+        }
+
+        public DateTime Start { get; private set; }
+        public DateTime End { get; private set; }
+    }
+
     public class Calculator
     {
         private IBudgetRepository _budgetRepository;
@@ -16,17 +28,19 @@ namespace BudgetCalculator
         {
             var budgets = _budgetRepository.GetAll();
 
+            var period = new Period(start, end);
             var budget = 0M;
 
+            var amountOfMiddleMonths = 0m;
             foreach (var budgetModel in budgets)
             {
-                if (budgetModel.YearMonth != start.ToString("yyyyMM") &&
-                    budgetModel.YearMonth != end.ToString("yyyyMM"))
+                if (IsMiddleMonthOfPeriod(period, budgetModel))
                 {
-                    DateTime firstDayOfBudgetMonth = DateTime.ParseExact(budgetModel.YearMonth + "01", "yyyyMMdd", null);
+                    DateTime firstDayOfBudgetMonth =
+                        DateTime.ParseExact(budgetModel.YearMonth + "01", "yyyyMMdd", null);
                     if (firstDayOfBudgetMonth > start && firstDayOfBudgetMonth < end)
                     {
-                        budget += budgetModel.Budget;
+                        amountOfMiddleMonths += budgetModel.Budget;
                     }
                 }
             }
@@ -49,7 +63,7 @@ namespace BudgetCalculator
                     budget += endBudgetModels.First().Budget / totalEndDaysInAMonth * endDays;
                 }
 
-                return budget;
+                return budget + amountOfMiddleMonths;
             }
 
             var days = CalculateDays(start, end);
@@ -61,6 +75,12 @@ namespace BudgetCalculator
             }
 
             return budgetModels.First().Budget / totalDaysInAMonth * days;
+        }
+
+        private static bool IsMiddleMonthOfPeriod(Period period, BudgetModel budgetModel)
+        {
+            return budgetModel.YearMonth != period.Start.ToString("yyyyMM") &&
+                   budgetModel.YearMonth != period.End.ToString("yyyyMM");
         }
 
         private int CalculateDays(DateTime start, DateTime end)
