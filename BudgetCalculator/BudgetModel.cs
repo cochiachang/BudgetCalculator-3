@@ -21,7 +21,7 @@ namespace BudgetCalculator
             return effectiveEnd;
         }
 
-        private int TotalDaysInMonth()
+        public int TotalDaysInMonth()
         {
             return DateTime.DaysInMonth(Year, Month);
         }

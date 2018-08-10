@@ -41,14 +41,15 @@ namespace BudgetCalculator
                 return AmountOfSingleMonth(period, budget);
             }
 
-            decimal amountOfMiddleMonths = 0;
-            var amountOfFirstMonth = 0m;
-            var amountOfLastMonth = 0m;
+            var totalAmount = 0m;
             foreach (var b in _budgetRepository.GetAll())
             {
                 if (IsMiddleMonthOfPeriod(period, b))
                 {
-                    amountOfMiddleMonths += b.Budget;
+                    var effectiveStart = b.FirstDay();
+                    var effectiveEnd = b.LastDay();
+                    var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
+                    totalAmount += b.DailyAmount() * effectiveDays;
                 }
 
                 if (IsFirstMonthBudget(b, period))
@@ -56,15 +57,19 @@ namespace BudgetCalculator
                     var effectiveEnd = b.LastDay();
                     var effectiveStart = period.Start;
                     var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
-                    amountOfFirstMonth = b.DailyAmount() * effectiveDays;
+                    totalAmount += b.DailyAmount() * effectiveDays;
                 }
 
                 if (IsLastMonthBudget(b, period))
                 {
-                    amountOfLastMonth = AmountOfLastMonth(period, b);
+                    var effectiveStart = b.FirstDay();
+                    var effectiveEnd = period.End;
+                    var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
+                    totalAmount += b.DailyAmount() * effectiveDays;
                 }
             }
-            return amountOfFirstMonth + amountOfLastMonth + amountOfMiddleMonths;
+
+            return totalAmount;
         }
 
         private static bool IsLastMonthBudget(BudgetModel b, Period period)
@@ -89,14 +94,6 @@ namespace BudgetCalculator
             }
 
             return 0;
-        }
-
-        private decimal AmountOfLastMonth(Period period, BudgetModel budget)
-        {
-            var effectiveStart = budget.FirstDay();
-            var effectiveEnd = period.End;
-            var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
-            return budget.DailyAmount() * effectiveDays;
         }
 
         private static bool IsMiddleMonthOfPeriod(Period period, BudgetModel budgetModel)
