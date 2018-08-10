@@ -85,16 +85,15 @@ namespace BudgetCalculator
 
         private decimal AmountOfLastMonth(Period period, List<BudgetModel> budgets)
         {
-            var amountOfLastMonth = 0m;
-            var endDays = CalculateDays(new DateTime(period.End.Year, period.End.Month, 1), period.End);
-            var totalEndDaysInAMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
-            var endBudgetModels = budgets.Where(model => { return model.YearMonth == period.End.ToString("yyyyMM"); });
-            if (endBudgetModels.Any())
+            var lastMonthBudget = budgets.FirstOrDefault(b => b.YearMonth == period.End.ToString("yyyyMM"));
+            if (lastMonthBudget != null)
             {
-                amountOfLastMonth += endBudgetModels.First().Budget / totalEndDaysInAMonth * endDays;
+                var endDays = CalculateDays(new DateTime(period.End.Year, period.End.Month, 1), period.End);
+                var totalEndDaysInAMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
+                return lastMonthBudget.Budget / totalEndDaysInAMonth * endDays;
             }
 
-            return amountOfLastMonth;
+            return 0m;
         }
 
         private decimal AmountOfFirstMonth(Period period, BudgetModel budgetOfStartMonth)
