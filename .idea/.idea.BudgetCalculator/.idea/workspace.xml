@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67fbbff7-d58f-4994-aa70-b08e1956c7d8" name="Default" comment="" />
+    <list default="true" id="67fbbff7-d58f-4994-aa70-b08e1956c7d8" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/BudgetCalculator/IBudgetRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BudgetCalculator/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BudgetCalculator/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BudgetCalculator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BudgetCalculator/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BudgetCalculator/BudgetCalculator.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetCalculator/BudgetCalculator.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BudgetCalculator/BudgetCalculatorTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetCalculator/BudgetCalculatorTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BudgetCalculator/obj/Debug/netcoreapp2.0/BudgetCalculator.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetCalculator/obj/Debug/netcoreapp2.0/BudgetCalculator.csprojAssemblyReference.cache" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,12 +21,37 @@
       <file leaf-file-name="BudgetCalculatorTests.cs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BudgetCalculator/BudgetCalculatorTests.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="12" column="1" selection-end-line="12" selection-end-column="1" />
+            <state relative-caret-position="324">
+              <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
               <folding>
-                <marker date="1533885902893" expanded="true" signature="79:225" ph="{...}" />
-                <marker date="1533885902893" expanded="true" signature="136:223" ph="{...}" />
-                <marker date="1533885902893" expanded="true" signature="197:217" ph="{...}" />
+                <marker date="1533887071765" expanded="true" signature="6:65" ph="..." />
+                <marker date="1533887071765" expanded="true" signature="93:1230" ph="{...}" />
+                <marker date="1533887071765" expanded="true" signature="150:788" ph="{...}" />
+                <marker date="1533887071765" expanded="true" signature="206:463" ph="{...}" />
+                <marker date="1533887071765" expanded="true" signature="524:782" ph="{...}" />
+                <marker date="1533887071765" expanded="true" signature="817:1228" ph="{...}" />
+                <marker date="1533887071765" expanded="true" signature="949:1019" ph="{...}" />
+                <marker date="1533887071765" expanded="true" signature="1089:1222" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IBudgetRepository.cs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BudgetCalculator/IBudgetRepository.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="208">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+              <folding>
+                <marker date="1533886407359" expanded="true" signature="61:916" ph="{...}" />
+                <marker date="1533886407359" expanded="true" signature="102:150" ph="{...}" />
+                <marker date="1533886407359" expanded="true" signature="205:781" ph="{...}" />
+                <marker date="1533886407359" expanded="true" signature="253:775" ph="{...}" />
+                <marker date="1533886407359" expanded="true" signature="317:764" ph="{...}" />
+                <marker date="1533886407359" expanded="true" signature="367:461" ph="{...}" />
+                <marker date="1533886407359" expanded="true" signature="511:605" ph="{...}" />
+                <marker date="1533886407359" expanded="true" signature="655:750" ph="{...}" />
+                <marker date="1533886407359" expanded="true" signature="811:914" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -27,12 +59,17 @@
       </file>
     </leaf>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/BudgetCalculator/BudgetCalculatorTests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BudgetCalculator/IBudgetRepository.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/BudgetCalculator/IBudgetRepository.cs" />
         <option value="$PROJECT_DIR$/BudgetCalculator/BudgetCalculatorTests.cs" />
       </list>
     </option>
@@ -52,6 +89,7 @@
     <option name="width" value="1851" />
     <option name="height" value="1000" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator currentView="SolutionExplorer" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -104,12 +142,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1533885861818</updated>
-      <workItem from="1533885863176" duration="40000" />
+      <workItem from="1533885863176" duration="1208000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40000" />
+    <option name="totallyTimeSpent" value="1208000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -127,14 +165,15 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Errors In Solution" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Unit Tests" />
+      <window_info active="true" anchor="bottom" id="Unit Tests" visible="true" weight="0.3293348" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info anchor="bottom" id="NuGet" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13752665" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13752665" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Build" />
       <window_info anchor="right" id="Database" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" side_tool="true" />
@@ -156,14 +195,37 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/BudgetCalculator/IBudgetRepository.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <marker date="1533886407359" expanded="true" signature="61:916" ph="{...}" />
+            <marker date="1533886407359" expanded="true" signature="102:150" ph="{...}" />
+            <marker date="1533886407359" expanded="true" signature="205:781" ph="{...}" />
+            <marker date="1533886407359" expanded="true" signature="253:775" ph="{...}" />
+            <marker date="1533886407359" expanded="true" signature="317:764" ph="{...}" />
+            <marker date="1533886407359" expanded="true" signature="367:461" ph="{...}" />
+            <marker date="1533886407359" expanded="true" signature="511:605" ph="{...}" />
+            <marker date="1533886407359" expanded="true" signature="655:750" ph="{...}" />
+            <marker date="1533886407359" expanded="true" signature="811:914" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BudgetCalculator/BudgetCalculatorTests.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="12" column="1" selection-end-line="12" selection-end-column="1" />
+        <state relative-caret-position="324">
+          <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
           <folding>
-            <marker date="1533885902893" expanded="true" signature="79:225" ph="{...}" />
-            <marker date="1533885902893" expanded="true" signature="136:223" ph="{...}" />
-            <marker date="1533885902893" expanded="true" signature="197:217" ph="{...}" />
+            <marker date="1533887071765" expanded="true" signature="6:65" ph="..." />
+            <marker date="1533887071765" expanded="true" signature="93:1230" ph="{...}" />
+            <marker date="1533887071765" expanded="true" signature="150:788" ph="{...}" />
+            <marker date="1533887071765" expanded="true" signature="206:463" ph="{...}" />
+            <marker date="1533887071765" expanded="true" signature="524:782" ph="{...}" />
+            <marker date="1533887071765" expanded="true" signature="817:1228" ph="{...}" />
+            <marker date="1533887071765" expanded="true" signature="949:1019" ph="{...}" />
+            <marker date="1533887071765" expanded="true" signature="1089:1222" ph="{...}" />
           </folding>
         </state>
       </provider>
