@@ -36,17 +36,23 @@ namespace BudgetCalculator
 
             var period = new Period(start, end);
             decimal amountOfMiddleMonths = 0;
+            var amountOfFirstMonth = 0m;
             foreach (var b in _budgetRepository.GetAll())
             {
                 if (IsMiddleMonthOfPeriod(period, b))
                 {
                     amountOfMiddleMonths += b.Budget;
                 }
+
+                if (IsFirstMonthBudget(b, period))
+                {
+                    amountOfFirstMonth = AmountOfFirstMonth(period, b);
+                }
             }
 
             if (period.IsQueryCrossMonth())
             {
-                var amountOfFirstMonth = AmountOfFirstMonth(period, budgets);
+                //var amountOfFirstMonth = AmountOfFirstMonth(period, budgets.FirstOrDefault(b => IsFirstMonthBudget(b, period)));
 
                 var amountOfLastMonth = AmountOfLastMonth(period, budgets);
 
@@ -55,6 +61,11 @@ namespace BudgetCalculator
 
             var amountOfSingleMonth = AmountOfSingleMonth(period, budgets);
             return amountOfSingleMonth;
+        }
+
+        private static bool IsFirstMonthBudget(BudgetModel model, Period period)
+        {
+            return model.YearMonth == period.Start.ToString("yyyyMM");
         }
 
         private decimal AmountOfSingleMonth(Period period, List<BudgetModel> budgets)
@@ -86,9 +97,8 @@ namespace BudgetCalculator
             return amountOfLastMonth;
         }
 
-        private decimal AmountOfFirstMonth(Period period, List<BudgetModel> budgets)
+        private decimal AmountOfFirstMonth(Period period, BudgetModel budgetOfStartMonth)
         {
-            var budgetOfStartMonth = budgets.FirstOrDefault(model => model.YearMonth == period.Start.ToString("yyyyMM"));
             if (budgetOfStartMonth != null)
             {
                 var totalStartDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
