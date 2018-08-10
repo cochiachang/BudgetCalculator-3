@@ -100,7 +100,35 @@ namespace BudgetCalculator
             var actual = _sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-02"));
             Assert.AreEqual(40, actual);
         }
+        
+        [TestMethod]
+        public void OutOfRange()
+        {
+            _budgetRepository.SetBudgets(new List<BudgetModel>
+            {
+                new BudgetModel
+                {
+                    YearMonth = "201803",
+                    Budget = 300
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201804",
+                    Budget = 600
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201806",
+                    Budget = 1200
+                }
+            });
+
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-01-01"), DateTime.Parse("2018-01-02"));
+            Assert.AreEqual(0, actual);
+        }
     }
+    
 
     public class Calculator
     {
@@ -116,8 +144,12 @@ namespace BudgetCalculator
             var days = CalculateDays(start, end);
             var totalDaysInAMonth = DateTime.DaysInMonth(start.Year, start.Month);
             var budgets = _budgetRepository.GetAll();
-            var budgetModel = budgets.Where(model => { return model.YearMonth == start.ToString("yyyyMM"); }).First();
-            var budget = budgetModel.Budget / totalDaysInAMonth * days;
+            var budgetModels = budgets.Where(model => { return model.YearMonth == start.ToString("yyyyMM"); });
+            if (!budgetModels.Any())
+            {
+                return 0;
+            }
+            var budget = budgetModels.First().Budget / totalDaysInAMonth * days;
             return budget;
         }
 
