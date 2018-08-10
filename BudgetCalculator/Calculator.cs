@@ -91,16 +91,19 @@ namespace BudgetCalculator
             return 0;
         }
 
-        private decimal AmountOfLastMonth(Period period, BudgetModel firstOrDefault)
+        private decimal AmountOfLastMonth(Period period, BudgetModel budget)
         {
-            if (firstOrDefault != null)
-            {
-                var endDays = CalculateDays(new DateTime(period.End.Year, period.End.Month, 1), period.End);
-                var totalEndDaysInAMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
-                return firstOrDefault.Budget / totalEndDaysInAMonth * endDays;
-            }
+            var effectiveStart = FirstDayOfBudget(budget);
+            var effectiveEnd = period.End;
+            var endDays = CalculateDays(effectiveStart, effectiveEnd);
+            var totalEndDaysInAMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
+            return budget.Budget / totalEndDaysInAMonth * endDays;
+        }
 
-            return 0m;
+        private static DateTime FirstDayOfBudget(BudgetModel budget)
+        {
+            var effectiveStart = new DateTime(budget.Year, budget.Month, 1);
+            return effectiveStart;
         }
 
         private static bool IsMiddleMonthOfPeriod(Period period, BudgetModel budgetModel)
