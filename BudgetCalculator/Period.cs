@@ -20,10 +20,11 @@ namespace BudgetCalculator
 
         public int EffectiveDays(Period otherPeriod)
         {
-            if (End < otherPeriod.Start || Start > otherPeriod.End)
+            if (HasNoOverlapping(otherPeriod))
             {
                 return 0;
             }
+
             var effectiveStart = otherPeriod.Start > Start
                 ? otherPeriod.Start
                 : Start;
@@ -33,6 +34,11 @@ namespace BudgetCalculator
                 : End;
 
             return (effectiveEnd - effectiveStart).Days + 1;
+        }
+
+        private bool HasNoOverlapping(Period otherPeriod)
+        {
+            return End < otherPeriod.Start || Start > otherPeriod.End;
         }
     }
 }
