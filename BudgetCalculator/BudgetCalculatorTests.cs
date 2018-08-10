@@ -21,24 +21,7 @@ namespace BudgetCalculator
         [TestMethod]
         public void OneDay()
         {
-            _budgetRepository.SetBudgets(new List<BudgetModel>
-            {
-                new BudgetModel
-                {
-                    YearMonth = "201803",
-                    Budget = 300
-                },
-                new BudgetModel
-                {
-                    YearMonth = "201804",
-                    Budget = 600
-                },
-                new BudgetModel
-                {
-                    YearMonth = "201806",
-                    Budget = 1200
-                }
-            });
+            Add04toRepo();
 
             _sut.SetData(_budgetRepository);
             var actual = _sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-01"));
@@ -46,15 +29,55 @@ namespace BudgetCalculator
             Assert.AreEqual(20, actual);
         }
 
-        [TestMethod]
-        public void OneMonth()
+        private void Add04toRepo()
+        {
+            _budgetRepository.SetBudgets(new List<BudgetModel>
+            {
+                new BudgetModel
+                {
+                    YearMonth = "201804",
+                    Budget = 600
+                }
+            });
+        }
+
+        private void Add03toRepo()
         {
             _budgetRepository.SetBudgets(new List<BudgetModel>
             {
                 new BudgetModel
                 {
                     YearMonth = "201803",
-                    Budget = 300
+                    Budget = 310
+                }
+            });
+        }
+
+        private void Add0304toRepo()
+        {
+            _budgetRepository.SetBudgets(new List<BudgetModel>
+            {
+                new BudgetModel
+                {
+                    YearMonth = "201803",
+                    Budget = 310
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201804",
+                    Budget = 600
+                }
+            });
+        }
+
+        private void Add030406toRepo()
+        {
+            _budgetRepository.SetBudgets(new List<BudgetModel>
+            {
+                new BudgetModel
+                {
+                    YearMonth = "201803",
+                    Budget = 310
                 },
                 new BudgetModel
                 {
@@ -67,6 +90,12 @@ namespace BudgetCalculator
                     Budget = 1200
                 }
             });
+        }
+
+        [TestMethod]
+        public void OneMonth()
+        {
+            Add0304toRepo();
 
             _sut.SetData(_budgetRepository);
             var actual = _sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-30"));
@@ -77,85 +106,44 @@ namespace BudgetCalculator
         [TestMethod]
         public void TwoDaysInAMonth()
         {
-            _budgetRepository.SetBudgets(new List<BudgetModel>
-            {
-                new BudgetModel
-                {
-                    YearMonth = "201803",
-                    Budget = 300
-                },
-                new BudgetModel
-                {
-                    YearMonth = "201804",
-                    Budget = 600
-                },
-                new BudgetModel
-                {
-                    YearMonth = "201806",
-                    Budget = 1200
-                }
-            });
+            Add04toRepo();
 
             _sut.SetData(_budgetRepository);
             var actual = _sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-02"));
             Assert.AreEqual(40, actual);
         }
-        
+
         [TestMethod]
         public void OutOfRange()
         {
-            _budgetRepository.SetBudgets(new List<BudgetModel>
-            {
-                new BudgetModel
-                {
-                    YearMonth = "201803",
-                    Budget = 300
-                },
-                new BudgetModel
-                {
-                    YearMonth = "201804",
-                    Budget = 600
-                },
-                new BudgetModel
-                {
-                    YearMonth = "201806",
-                    Budget = 1200
-                }
-            });
+            Add03toRepo();
 
             _sut.SetData(_budgetRepository);
             var actual = _sut.CalculateBudget(DateTime.Parse("2018-01-01"), DateTime.Parse("2018-01-02"));
             Assert.AreEqual(0, actual);
         }
-        
+
         [TestMethod]
         public void CrossMonth_20180201_20180301()
         {
-            _budgetRepository.SetBudgets(new List<BudgetModel>
-            {
-                new BudgetModel
-                {
-                    YearMonth = "201803",
-                    Budget = 300
-                },
-                new BudgetModel
-                {
-                    YearMonth = "201804",
-                    Budget = 600
-                },
-                new BudgetModel
-                {
-                    YearMonth = "201806",
-                    Budget = 1200
-                }
-            });
+            Add03toRepo();
 
             _sut.SetData(_budgetRepository);
             var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-03-01"));
             Assert.AreEqual(10, actual);
         }
+
+        [TestMethod]
+        public void CrossMonth_20180201_20180302()
+        {
+            Add03toRepo();
+
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-03-02"));
+            Assert.AreEqual(20, actual);
+        }
     }
-    
+
 
     public class Calculator
     {
@@ -168,18 +156,39 @@ namespace BudgetCalculator
 
         public decimal CalculateBudget(DateTime start, DateTime end)
         {
+            var budgets = _budgetRepository.GetAll();
+
             if (start.ToString("yyyyMM") != end.ToString("yyyyMM"))
             {
-                return 10;
+                var startBudget = 0M;
+                var endBudget = 0M;
+                
+                var totalStartDaysInAMonth = DateTime.DaysInMonth(start.Year, start.Month);
+                var startDays = CalculateDays(start, new DateTime(start.Year,start.Month,totalStartDaysInAMonth));
+                var startBudgetModels = budgets.Where(model => { return model.YearMonth == start.ToString("yyyyMM"); });
+                if (startBudgetModels.Any())
+                {
+                    startBudget = startBudgetModels.First().Budget / totalStartDaysInAMonth * startDays;
+                }
+                
+                var endDays = CalculateDays(new DateTime(end.Year,end.Month,1),end);
+                var totalEndDaysInAMonth = DateTime.DaysInMonth(end.Year, end.Month);
+                var endBudgetModels = budgets.Where(model => { return model.YearMonth == end.ToString("yyyyMM"); });
+                if (endBudgetModels.Any())
+                {
+                    endBudget = endBudgetModels.First().Budget / totalEndDaysInAMonth * endDays;
+                }
+
+                return startBudget + endBudget;
             }
             var days = CalculateDays(start, end);
             var totalDaysInAMonth = DateTime.DaysInMonth(start.Year, start.Month);
-            var budgets = _budgetRepository.GetAll();
             var budgetModels = budgets.Where(model => { return model.YearMonth == start.ToString("yyyyMM"); });
             if (!budgetModels.Any())
             {
                 return 0;
             }
+
             var budget = budgetModels.First().Budget / totalDaysInAMonth * days;
             return budget;
         }
