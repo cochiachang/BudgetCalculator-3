@@ -37,7 +37,7 @@ namespace BudgetCalculator
         {
             if (budget != null)
             {
-                var days = Period.CalculateDays(period.Start, period.End);
+                var days = (period.End - period.Start).Days + 1;
                 var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
 
                 var amountOfSingleMonth = budget.Budget / totalDaysInAMonth * days;
