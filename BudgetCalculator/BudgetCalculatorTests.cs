@@ -142,6 +142,16 @@ namespace BudgetCalculator
             var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-03-02"));
             Assert.AreEqual(20, actual);
         }
+        
+        [TestMethod]
+        public void CrossMonth_20180201_20180401()
+        {
+            Add0304toRepo();
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-04-01"));
+            Assert.AreEqual(330, actual);
+        }
+        
     }
 
 
@@ -158,17 +168,29 @@ namespace BudgetCalculator
         {
             var budgets = _budgetRepository.GetAll();
 
+            var budget = 0M;
+            
+            foreach (var budgetModel in budgets)
+            {
+                if (budgetModel.YearMonth != start.ToString("yyyyMM") &&
+                    budgetModel.YearMonth != end.ToString("yyyyMM"))
+                {
+                    DateTime d = DateTime.ParseExact(budgetModel.YearMonth + "01", "yyyyMMdd", null);
+                    if (d > start && d < end)
+                    {
+                        budget += budgetModel.Budget;
+                    }
+                }
+            }
+            
             if (start.ToString("yyyyMM") != end.ToString("yyyyMM"))
             {
-                var startBudget = 0M;
-                var endBudget = 0M;
-                
                 var totalStartDaysInAMonth = DateTime.DaysInMonth(start.Year, start.Month);
                 var startDays = CalculateDays(start, new DateTime(start.Year,start.Month,totalStartDaysInAMonth));
                 var startBudgetModels = budgets.Where(model => { return model.YearMonth == start.ToString("yyyyMM"); });
                 if (startBudgetModels.Any())
                 {
-                    startBudget = startBudgetModels.First().Budget / totalStartDaysInAMonth * startDays;
+                    budget += startBudgetModels.First().Budget / totalStartDaysInAMonth * startDays;
                 }
                 
                 var endDays = CalculateDays(new DateTime(end.Year,end.Month,1),end);
@@ -176,10 +198,10 @@ namespace BudgetCalculator
                 var endBudgetModels = budgets.Where(model => { return model.YearMonth == end.ToString("yyyyMM"); });
                 if (endBudgetModels.Any())
                 {
-                    endBudget = endBudgetModels.First().Budget / totalEndDaysInAMonth * endDays;
+                    budget += endBudgetModels.First().Budget / totalEndDaysInAMonth * endDays;
                 }
 
-                return startBudget + endBudget;
+                return budget;
             }
             var days = CalculateDays(start, end);
             var totalDaysInAMonth = DateTime.DaysInMonth(start.Year, start.Month);
@@ -189,8 +211,7 @@ namespace BudgetCalculator
                 return 0;
             }
 
-            var budget = budgetModels.First().Budget / totalDaysInAMonth * days;
-            return budget;
+            return budgetModels.First().Budget / totalDaysInAMonth * days;
         }
 
         private int CalculateDays(DateTime start, DateTime end)
