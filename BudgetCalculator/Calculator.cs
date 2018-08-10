@@ -27,12 +27,18 @@ namespace BudgetCalculator
             var totalAmount = 0m;
             foreach (var b in _budgetRepository.GetAll())
             {
-                var effectiveDays = period.EffectiveDays(new Period(b.FirstDay(), b.LastDay()));
+                var periodByBudget = CreatePeriodByBudget(b);
+                var effectiveDays = period.EffectiveDays(periodByBudget);
 
                 totalAmount += b.DailyAmount() * effectiveDays;
             }
 
             return totalAmount;
+        }
+
+        private static Period CreatePeriodByBudget(BudgetModel b)
+        {
+            return new Period(b.FirstDay(), b.LastDay());
         }
 
         private decimal AmountOfSingleMonth(Period period, BudgetModel budget)
