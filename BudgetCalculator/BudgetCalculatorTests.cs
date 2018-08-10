@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -142,7 +141,7 @@ namespace BudgetCalculator
             var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-03-02"));
             Assert.AreEqual(20, actual);
         }
-        
+
         [TestMethod]
         public void CrossMonth_20180201_20180401()
         {
@@ -186,73 +185,6 @@ namespace BudgetCalculator
             _sut.SetData(_budgetRepository);
             var actual = _sut.CalculateBudget(DateTime.Parse("2018-03-31"), DateTime.Parse("2018-06-01"));
             Assert.AreEqual(650, actual);
-        }
-
-    }
-
-
-    public class Calculator
-    {
-        private IBudgetRepository _budgetRepository;
-
-        public void SetData(IBudgetRepository budgetRepository)
-        {
-            _budgetRepository = budgetRepository;
-        }
-
-        public decimal CalculateBudget(DateTime start, DateTime end)
-        {
-            var budgets = _budgetRepository.GetAll();
-
-            var budget = 0M;
-            
-            foreach (var budgetModel in budgets)
-            {
-                if (budgetModel.YearMonth != start.ToString("yyyyMM") &&
-                    budgetModel.YearMonth != end.ToString("yyyyMM"))
-                {
-                    DateTime d = DateTime.ParseExact(budgetModel.YearMonth + "01", "yyyyMMdd", null);
-                    if (d > start && d < end)
-                    {
-                        budget += budgetModel.Budget;
-                    }
-                }
-            }
-            
-            if (start.ToString("yyyyMM") != end.ToString("yyyyMM"))
-            {
-                var totalStartDaysInAMonth = DateTime.DaysInMonth(start.Year, start.Month);
-                var startDays = CalculateDays(start, new DateTime(start.Year,start.Month,totalStartDaysInAMonth));
-                var startBudgetModels = budgets.Where(model => { return model.YearMonth == start.ToString("yyyyMM"); });
-                if (startBudgetModels.Any())
-                {
-                    budget += startBudgetModels.First().Budget / totalStartDaysInAMonth * startDays;
-                }
-                
-                var endDays = CalculateDays(new DateTime(end.Year,end.Month,1),end);
-                var totalEndDaysInAMonth = DateTime.DaysInMonth(end.Year, end.Month);
-                var endBudgetModels = budgets.Where(model => { return model.YearMonth == end.ToString("yyyyMM"); });
-                if (endBudgetModels.Any())
-                {
-                    budget += endBudgetModels.First().Budget / totalEndDaysInAMonth * endDays;
-                }
-
-                return budget;
-            }
-            var days = CalculateDays(start, end);
-            var totalDaysInAMonth = DateTime.DaysInMonth(start.Year, start.Month);
-            var budgetModels = budgets.Where(model => { return model.YearMonth == start.ToString("yyyyMM"); });
-            if (!budgetModels.Any())
-            {
-                return 0;
-            }
-
-            return budgetModels.First().Budget / totalDaysInAMonth * days;
-        }
-
-        private int CalculateDays(DateTime start, DateTime end)
-        {
-            return (end - start).Days + 1;
         }
     }
 }
