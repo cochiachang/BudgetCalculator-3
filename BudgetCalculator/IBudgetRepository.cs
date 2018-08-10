@@ -9,26 +9,16 @@ namespace BudgetCalculator
 
     public class BudgetRepository : IBudgetRepository
     {
+        private List<BudgetModel> _bugets;
+
         public List<BudgetModel> GetAll()
         {
-            return new List<BudgetModel>
-            {
-                new BudgetModel
-                {
-                    YearMonth = "201803",
-                    Budget = 300
-                },
-                new BudgetModel
-                {
-                    YearMonth = "201804",
-                    Budget = 600
-                },
-                new BudgetModel
-                {
-                    YearMonth = "201806",
-                    Budget = 1200
-                }
-            };
+            return _bugets;
+        }
+
+        public void SetBudgets(List<BudgetModel> bugets)
+        {
+            _bugets = bugets;
         }
     }
 

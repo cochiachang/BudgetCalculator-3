@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BudgetCalculator
@@ -6,33 +9,95 @@ namespace BudgetCalculator
     [TestClass]
     public class BudgetCalculatorTests
     {
+        private BudgetRepository _budgetRepository;
+        private Calculator _sut;
+
+        public BudgetCalculatorTests()
+        {
+            _budgetRepository = new BudgetRepository();
+            _sut = new Calculator();
+        }
+
         [TestMethod]
         public void OneDay()
         {
-            var sut = new Calculator();
-            sut.SetData(new BudgetRepository());
-            var actual = sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-01"));
+            _budgetRepository.SetBudgets(new List<BudgetModel>
+            {
+                new BudgetModel
+                {
+                    YearMonth = "201803",
+                    Budget = 300
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201804",
+                    Budget = 600
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201806",
+                    Budget = 1200
+                }
+            });
+
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-01"));
 
             Assert.AreEqual(20, actual);
         }
-        
+
         [TestMethod]
         public void OneMonth()
         {
-            var sut = new Calculator();
-            sut.SetData(new BudgetRepository());
-            var actual = sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-30"));
+            _budgetRepository.SetBudgets(new List<BudgetModel>
+            {
+                new BudgetModel
+                {
+                    YearMonth = "201803",
+                    Budget = 300
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201804",
+                    Budget = 600
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201806",
+                    Budget = 1200
+                }
+            });
+
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-30"));
 
             Assert.AreEqual(600, actual);
         }
-        
+
         [TestMethod]
         public void TwoDaysInAMonth()
         {
-            var sut = new Calculator();
-            sut.SetData(new BudgetRepository());
-            var actual = sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-02"));
+            _budgetRepository.SetBudgets(new List<BudgetModel>
+            {
+                new BudgetModel
+                {
+                    YearMonth = "201803",
+                    Budget = 300
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201804",
+                    Budget = 600
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201806",
+                    Budget = 1200
+                }
+            });
 
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-02"));
             Assert.AreEqual(40, actual);
         }
     }
@@ -40,7 +105,7 @@ namespace BudgetCalculator
     public class Calculator
     {
         private IBudgetRepository _budgetRepository;
-        
+
         public void SetData(IBudgetRepository budgetRepository)
         {
             _budgetRepository = budgetRepository;
@@ -48,13 +113,17 @@ namespace BudgetCalculator
 
         public decimal CalculateBudget(DateTime start, DateTime end)
         {
-            if (start.Day == 1 && end.Day == 2)
-                return 40;
-            
-            if (start.Day == 1 && end.Day == 30)
-                return 600;
-            
-            return 20;
+            var days = CalculateDays(start, end);
+            var totalDaysInAMonth = DateTime.DaysInMonth(start.Year, start.Month);
+            var budgets = _budgetRepository.GetAll();
+            var budgetModel = budgets.Where(model => { return model.YearMonth == start.ToString("yyyyMM"); }).First();
+            var budget = budgetModel.Budget / totalDaysInAMonth * days;
+            return budget;
+        }
+
+        private int CalculateDays(DateTime start, DateTime end)
+        {
+            return (end - start).Days + 1;
         }
     }
 }
