@@ -102,15 +102,10 @@ namespace BudgetCalculator
 
         private decimal AmountOfFirstMonth(Period period, BudgetModel budget)
         {
-            if (budget != null)
-            {
-                var effectiveEnd = budget.LastDay();
-                var effectiveStart = period.Start;
-                var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
-                return budget.DailyAmount() * effectiveDays;
-            }
-
-            return 0;
+            var effectiveEnd = budget.LastDay();
+            var effectiveStart = period.Start;
+            var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
+            return budget.DailyAmount() * effectiveDays;
         }
 
         private static bool IsMiddleMonthOfPeriod(Period period, BudgetModel budgetModel)
