@@ -20,6 +20,10 @@ namespace BudgetCalculator
 
         public int EffectiveDays(Period otherPeriod)
         {
+            if (End < otherPeriod.Start || Start > otherPeriod.End)
+            {
+                return 0;
+            }
             var effectiveStart = otherPeriod.Start > Start
                 ? otherPeriod.Start
                 : Start;
