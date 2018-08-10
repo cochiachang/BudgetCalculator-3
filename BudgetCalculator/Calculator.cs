@@ -104,7 +104,7 @@ namespace BudgetCalculator
         {
             if (budget != null)
             {
-                var totalDaysInMonth = TotalDaysInMonth(budget);
+                var totalDaysInMonth = budget.TotalDaysInMonth();
                 var effectiveEnd = new DateTime(period.Start.Year, period.Start.Month, totalDaysInMonth);
                 var effectiveStart = period.Start;
                 var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
@@ -113,11 +113,6 @@ namespace BudgetCalculator
             }
 
             return 0;
-        }
-
-        private static int TotalDaysInMonth(BudgetModel budgetOfStartMonth)
-        {
-            return DateTime.DaysInMonth(budgetOfStartMonth.Year, budgetOfStartMonth.Month);
         }
 
         private static bool IsMiddleMonthOfPeriod(Period period, BudgetModel budgetModel)

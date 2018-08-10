@@ -32,5 +32,10 @@ namespace BudgetCalculator
         public int Year => Convert.ToInt16(YearMonth.Substring(0, 4));
 
         public int Month => Convert.ToInt16(YearMonth.Substring(4, 2));
+
+        public int TotalDaysInMonth()
+        {
+            return DateTime.DaysInMonth(Year, Month);
+        }
     }
 }
