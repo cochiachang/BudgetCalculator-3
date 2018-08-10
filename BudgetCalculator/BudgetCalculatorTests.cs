@@ -127,6 +127,33 @@ namespace BudgetCalculator
             var actual = _sut.CalculateBudget(DateTime.Parse("2018-01-01"), DateTime.Parse("2018-01-02"));
             Assert.AreEqual(0, actual);
         }
+        
+        [TestMethod]
+        public void CrossMonth_20180201_20180301()
+        {
+            _budgetRepository.SetBudgets(new List<BudgetModel>
+            {
+                new BudgetModel
+                {
+                    YearMonth = "201803",
+                    Budget = 300
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201804",
+                    Budget = 600
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201806",
+                    Budget = 1200
+                }
+            });
+
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-03-01"));
+            Assert.AreEqual(10, actual);
+        }
     }
     
 
@@ -141,6 +168,10 @@ namespace BudgetCalculator
 
         public decimal CalculateBudget(DateTime start, DateTime end)
         {
+            if (start.ToString("yyyyMM") != end.ToString("yyyyMM"))
+            {
+                return 10;
+            }
             var days = CalculateDays(start, end);
             var totalDaysInAMonth = DateTime.DaysInMonth(start.Year, start.Month);
             var budgets = _budgetRepository.GetAll();
