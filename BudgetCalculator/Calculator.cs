@@ -104,19 +104,13 @@ namespace BudgetCalculator
         {
             if (budget != null)
             {
-                var effectiveEnd = LastDayOfBudget(budget);
+                var effectiveEnd = budget.LastDay();
                 var effectiveStart = period.Start;
                 var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
                 return budget.DailyAmount() * effectiveDays;
             }
 
             return 0;
-        }
-
-        private static DateTime LastDayOfBudget(BudgetModel budget)
-        {
-            var effectiveEnd = new DateTime(budget.Year, budget.Month, budget.TotalDaysInMonth());
-            return effectiveEnd;
         }
 
         private static bool IsMiddleMonthOfPeriod(Period period, BudgetModel budgetModel)
