@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace BudgetCalculator
 {
@@ -27,5 +28,9 @@ namespace BudgetCalculator
         public string YearMonth { get; set; }
 
         public decimal Amount { get; set; }
+
+        public int Year => Convert.ToInt16(YearMonth.Substring(0, 4));
+
+        public int Month => Convert.ToInt16(YearMonth.Substring(4, 2));
     }
 }
