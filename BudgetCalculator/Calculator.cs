@@ -39,9 +39,9 @@ namespace BudgetCalculator
 
             if (period.isCrossMonth())
             {
-                budget += FirstMonthBudget(period, budgets);
+                budget += FirstMonthBudget(period, budgets.FirstOrDefault(b => b.YearMonth == period.Start.ToString("yyyyMM")));
 
-                budget += LastMonthBudget(period, budgets);
+                budget += LastMonthBudget(period, budgets.FirstOrDefault(b => b.YearMonth == period.End.ToString("yyyyMM")));
 
                 foreach (var budgetModel in budgets)
                 {
@@ -54,46 +54,43 @@ namespace BudgetCalculator
                 return budget;
             }
 
-            return SingleMonthBudget(period, budgets);
+            return SingleMonthBudget(period, budgets.FirstOrDefault(model => model.YearMonth == period.Start.ToString("yyyyMM")));
         }
 
-        private decimal SingleMonthBudget(Period period, List<BudgetModel> budgets)
+        private decimal SingleMonthBudget(Period period, BudgetModel budget)
         {
             var days = CalculateDays(period);
             var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
-            var budgetModels = budgets.FirstOrDefault(model => model.YearMonth == period.Start.ToString("yyyyMM"));
-            if (budgetModels == null)
+            if (budget == null)
             {
                 return 0;
             }
 
-            return budgetModels.Budget / totalDaysInAMonth * days;
+            return budget.Budget / totalDaysInAMonth * days;
         }
 
-        private decimal LastMonthBudget(Period period, List<BudgetModel> budgets)
+        private decimal LastMonthBudget(Period period, BudgetModel budget)
         {
             var lastMonthBudget = 0m;
             var endDays = CalculateDays(new Period(new DateTime(period.End.Year, period.End.Month, 1), period.End));
             var totalEndDaysInAMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
-            var endBudgetModels = budgets.FirstOrDefault(b => b.YearMonth == period.End.ToString("yyyyMM"));
-            if (endBudgetModels != null)
+            if (budget != null)
             {
-                lastMonthBudget = endBudgetModels.Budget / totalEndDaysInAMonth * endDays;
+                lastMonthBudget = budget.Budget / totalEndDaysInAMonth * endDays;
             }
 
             return lastMonthBudget;
         }
 
-        private decimal FirstMonthBudget(Period period, List<BudgetModel> budgets)
+        private decimal FirstMonthBudget(Period period, BudgetModel budget)
         {
             var firstMonthBudget = 0m;
             var totalStartDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
             var startDays = CalculateDays(new Period(period.Start,
                 new DateTime(period.Start.Year, period.Start.Month, totalStartDaysInAMonth)));
-            var startBudgetModels = budgets.FirstOrDefault(b => b.YearMonth == period.Start.ToString("yyyyMM"));
-            if (startBudgetModels!=null)
+            if (budget!=null)
             {
-                firstMonthBudget = startBudgetModels.Budget / totalStartDaysInAMonth * startDays;
+                firstMonthBudget = budget.Budget / totalStartDaysInAMonth * startDays;
             }
 
             return firstMonthBudget;
