@@ -16,14 +16,11 @@ namespace BudgetCalculator
 
         private DateTime LastDay => new DateTime(Year, Month, DaysInMonth);
 
-        public Period CreatePeriod()
-        {
-            return new Period(FirstDay, LastDay);
-        }
+        private Period CreatePeriod => new Period(FirstDay, LastDay);
 
         public decimal EffectiveTotalAmount(Period period)
         {
-            return DailyAmount * period.OverlappingDays(CreatePeriod());
+            return DailyAmount * period.OverlappingDays(CreatePeriod);
         }
     }
 }
