@@ -1,129 +1,189 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
 using System;
-using System.Linq;
+using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace BudgetCalculator
 {
-    [TestClass]
+    [TestFixture]
     public class BudgetCalculatorTests
     {
-        private IBudgetRepository _budgetRepository;
+        private BudgetRepository _budgetRepository;
         private Calculator _sut;
 
         public BudgetCalculatorTests()
         {
-            _budgetRepository = Substitute.For<IBudgetRepository>();
-            _sut = new Calculator(_budgetRepository);
+            _budgetRepository = new BudgetRepository();
+            _sut = new Calculator();
         }
 
-        [TestMethod]
-        public void CrossMonth_20170201_20190701()
-        {
-            GivenBudgets(
-                new BudgetModel { YearMonth = "201803", Budget = 310 },
-                new BudgetModel { YearMonth = "201804", Budget = 600 },
-                new BudgetModel { YearMonth = "201806", Budget = 1200 });
-
-            TotalAmountShouldBe(2110, "2017-02-01", "2019-07-01");
-        }
-
-        [TestMethod]
-        public void CrossMonth_20180201_20180301()
-        {
-            GivenBudgets(new BudgetModel { YearMonth = "201803", Budget = 310 });
-            TotalAmountShouldBe(10, "2018-02-01", "2018-03-01");
-        }
-
-        [TestMethod]
-        public void CrossMonth_20180201_20180302()
-        {
-            GivenBudgets(new BudgetModel { YearMonth = "201803", Budget = 310 });
-            TotalAmountShouldBe(20, "2018-02-01", "2018-03-02");
-        }
-
-        [TestMethod]
-        public void CrossMonth_20180201_20180401()
-        {
-            GivenBudgets(
-                new BudgetModel { YearMonth = "201803", Budget = 310 },
-                new BudgetModel { YearMonth = "201804", Budget = 600 });
-
-            TotalAmountShouldBe(330, "2018-02-01", "2018-04-01");
-        }
-
-        [TestMethod]
-        public void CrossMonth_20180201_20180615()
-        {
-            GivenBudgets(
-                new BudgetModel { YearMonth = "201803", Budget = 310 },
-                new BudgetModel { YearMonth = "201804", Budget = 600 },
-                new BudgetModel { YearMonth = "201806", Budget = 1200 });
-
-            TotalAmountShouldBe(1510, "2018-02-01", "2018-06-15");
-        }
-
-        [TestMethod]
-        public void CrossMonth_20180201_20180701()
-        {
-            GivenBudgets(
-                new BudgetModel { YearMonth = "201803", Budget = 310 },
-                new BudgetModel { YearMonth = "201804", Budget = 600 },
-                new BudgetModel { YearMonth = "201806", Budget = 1200 });
-
-            TotalAmountShouldBe(2110, "2018-02-01", "2018-07-01");
-        }
-
-        [TestMethod]
-        public void CrossMonth_20180331_20180601()
-        {
-            GivenBudgets(
-                new BudgetModel { YearMonth = "201803", Budget = 310 },
-                new BudgetModel { YearMonth = "201804", Budget = 600 },
-                new BudgetModel { YearMonth = "201806", Budget = 1200 });
-
-            TotalAmountShouldBe(650, "2018-03-31", "2018-06-01");
-        }
-
-        [TestMethod]
+        [Test]
         public void OneDay()
         {
-            GivenBudgets(new BudgetModel { YearMonth = "201804", Budget = 600 });
-            TotalAmountShouldBe(expected: 20m, start: "2018-04-01", end: "2018-04-01");
+            Add04toRepo();
+
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-01"));
+
+            Assert.AreEqual(20, actual);
         }
 
-        [TestMethod]
+        private void Add04toRepo()
+        {
+            _budgetRepository.SetBudgets(new List<BudgetModel>
+            {
+                new BudgetModel
+                {
+                    YearMonth = "201804",
+                    Budget = 600
+                }
+            });
+        }
+
+        private void Add03toRepo()
+        {
+            _budgetRepository.SetBudgets(new List<BudgetModel>
+            {
+                new BudgetModel
+                {
+                    YearMonth = "201803",
+                    Budget = 310
+                }
+            });
+        }
+
+        private void Add0304toRepo()
+        {
+            _budgetRepository.SetBudgets(new List<BudgetModel>
+            {
+                new BudgetModel
+                {
+                    YearMonth = "201803",
+                    Budget = 310
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201804",
+                    Budget = 600
+                }
+            });
+        }
+
+        private void Add030406toRepo()
+        {
+            _budgetRepository.SetBudgets(new List<BudgetModel>
+            {
+                new BudgetModel
+                {
+                    YearMonth = "201803",
+                    Budget = 310
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201804",
+                    Budget = 600
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201806",
+                    Budget = 1200
+                }
+            });
+        }
+
+        [Test]
         public void OneMonth()
         {
-            GivenBudgets(
-                new BudgetModel { YearMonth = "201803", Budget = 310 },
-                new BudgetModel { YearMonth = "201804", Budget = 600 });
+            Add0304toRepo();
 
-            TotalAmountShouldBe(600, "2018-04-01", "2018-04-30");
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-30"));
+
+            Assert.AreEqual(600, actual);
         }
 
-        [TestMethod]
-        public void OutOfRange()
-        {
-            GivenBudgets(new BudgetModel { YearMonth = "201803", Budget = 310 });
-            TotalAmountShouldBe(0, "2018-01-01", "2018-01-02");
-        }
-
-        [TestMethod]
+        [Test]
         public void TwoDaysInAMonth()
         {
-            GivenBudgets(new BudgetModel { YearMonth = "201804", Budget = 600 });
-            TotalAmountShouldBe(40, "2018-04-01", "2018-04-02");
+            Add04toRepo();
+
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-04-01"), DateTime.Parse("2018-04-02"));
+            Assert.AreEqual(40, actual);
         }
 
-        private void GivenBudgets(params BudgetModel[] budgets)
+        [Test]
+        public void OutOfRange()
         {
-            _budgetRepository.GetAll().Returns(budgets.ToList());
+            Add03toRepo();
+
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-01-01"), DateTime.Parse("2018-01-02"));
+            Assert.AreEqual(0, actual);
         }
 
-        private void TotalAmountShouldBe(decimal expected, string start, string end)
+        [Test]
+        public void CrossMonth_20180201_20180301()
         {
-            Assert.AreEqual(expected, _sut.CalculateBudget(DateTime.Parse(start), DateTime.Parse(end)));
+            Add03toRepo();
+
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-03-01"));
+            Assert.AreEqual(10, actual);
+        }
+
+        [Test]
+        public void CrossMonth_20180201_20180302()
+        {
+            Add03toRepo();
+
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-03-02"));
+            Assert.AreEqual(20, actual);
+        }
+
+        [Test]
+        public void CrossMonth_20180201_20180401()
+        {
+            Add0304toRepo();
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-04-01"));
+            Assert.AreEqual(330, actual);
+        }
+
+        [Test]
+        public void CrossMonth_20180201_20180701()
+        {
+            Add030406toRepo();
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-07-01"));
+            Assert.AreEqual(2110, actual);
+        }
+
+        [Test]
+        public void CrossMonth_20170201_20190701()
+        {
+            Add030406toRepo();
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2017-02-01"), DateTime.Parse("2019-07-01"));
+            Assert.AreEqual(2110, actual);
+        }
+
+        [Test]
+        public void CrossMonth_20180201_20180615()
+        {
+            Add030406toRepo();
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-02-01"), DateTime.Parse("2018-06-15"));
+            Assert.AreEqual(1510, actual);
+        }
+
+        [Test]
+        public void CrossMonth_20180331_20180601()
+        {
+            Add030406toRepo();
+            _sut.SetData(_budgetRepository);
+            var actual = _sut.CalculateBudget(DateTime.Parse("2018-03-31"), DateTime.Parse("2018-06-01"));
+            Assert.AreEqual(650, actual);
         }
     }
 }
