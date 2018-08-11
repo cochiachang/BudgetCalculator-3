@@ -61,7 +61,9 @@ namespace BudgetCalculator
         {
             if (budget != null)
             {
-                var effectiveDays = CalculateDays(new DateTime(period.End.Year, period.End.Month, 1), period.End);
+                var effectiveStart = budget.FirstDay();
+                var effectiveEnd = period.End;
+                var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
                 return budget.DailyAmount() * effectiveDays;
             }
 
@@ -72,8 +74,9 @@ namespace BudgetCalculator
         {
             if (budget != null)
             {
-                var effectiveDays = CalculateDays(period.Start,
-                    new DateTime(period.Start.Year, period.Start.Month, budget.DaysInMonth()));
+                var effectiveStart = period.Start;
+                var effectiveEnd = budget.LastDay();
+                var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
                 return budget.DailyAmount() * effectiveDays;
             }
 

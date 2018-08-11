@@ -44,5 +44,17 @@ namespace BudgetCalculator
             var dailyAmount = Amount / DaysInMonth();
             return dailyAmount;
         }
+
+        public DateTime FirstDay()
+        {
+            var effectiveStart = new DateTime(Year, Month, 1);
+            return effectiveStart;
+        }
+
+        public DateTime LastDay()
+        {
+            var effectiveEnd = new DateTime(Year, Month, DaysInMonth());
+            return effectiveEnd;
+        }
     }
 }
