@@ -29,30 +29,36 @@ namespace BudgetCalculator
             {
                 foreach (var budget in budgets)
                 {
-                    var effectiveStart = period.Start;
-                    var effectiveEnd = period.End;
-                    if (IsFirstMonth(budget, period))
-                    {
-                        effectiveStart = period.Start;
-                        effectiveEnd = budget.LastDay();
-                    }
-                    else if (IsLastMonth(budget, period))
-                    {
-                        effectiveStart = budget.FirstDay();
-                        effectiveEnd = period.End;
-                    }
-                    else
-                    {
-                        effectiveStart = budget.FirstDay();
-                        effectiveEnd = budget.LastDay();
-                    }
-                    var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
-                    var effectiveAmount = budget.DailyAmount() * effectiveDays;
-                    totalAmount += effectiveAmount;
+                    var effectiveDays = EffectiveDays(period, budget);
+                    totalAmount += budget.DailyAmount() * effectiveDays;
                 }
 
                 return totalAmount;
             }
+        }
+
+        private int EffectiveDays(Period period, BudgetModel budget)
+        {
+            var effectiveStart = period.Start;
+            var effectiveEnd = period.End;
+            if (IsFirstMonth(budget, period))
+            {
+                effectiveStart = period.Start;
+                effectiveEnd = budget.LastDay();
+            }
+            else if (IsLastMonth(budget, period))
+            {
+                effectiveStart = budget.FirstDay();
+                effectiveEnd = period.End;
+            }
+            else
+            {
+                effectiveStart = budget.FirstDay();
+                effectiveEnd = budget.LastDay();
+            }
+
+            var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
+            return effectiveDays;
         }
 
         private static bool IsLastMonth(BudgetModel model, Period period)
