@@ -40,25 +40,18 @@ namespace BudgetCalculator
         private int EffectiveDays(Period period, BudgetModel budget)
         {
             var effectiveStart = period.Start;
+            if (budget.FirstDay() > period.Start)
+            {
+                effectiveStart = budget.FirstDay();
+            }
+
             var effectiveEnd = period.End;
-            if (IsFirstMonth(budget, period))
+            if (budget.LastDay() < period.End)
             {
-                effectiveStart = period.Start;
-                effectiveEnd = budget.LastDay();
-            }
-            else if (IsLastMonth(budget, period))
-            {
-                effectiveStart = budget.FirstDay();
-                effectiveEnd = period.End;
-            }
-            else
-            {
-                effectiveStart = budget.FirstDay();
                 effectiveEnd = budget.LastDay();
             }
 
-            var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
-            return effectiveDays;
+            return Days(effectiveStart, effectiveEnd);
         }
 
         private static bool IsLastMonth(BudgetModel model, Period period)
@@ -73,7 +66,7 @@ namespace BudgetCalculator
 
         private decimal AmountOfSingleMonth(Period period, List<BudgetModel> budgets)
         {
-            var days = CalculateDays(period.Start, period.End);
+            var days = Days(period.Start, period.End);
             var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
             var budgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });
             if (!budgetModels.Any())
@@ -84,7 +77,7 @@ namespace BudgetCalculator
             return budgetModels.First().Amount / totalDaysInAMonth * days;
         }
 
-        private int CalculateDays(DateTime start, DateTime end)
+        private int Days(DateTime start, DateTime end)
         {
             return (end - start).Days + 1;
         }
