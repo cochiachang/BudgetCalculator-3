@@ -75,10 +75,9 @@ namespace BudgetCalculator
         {
             if (budget != null)
             {
-                var daysInBudgetMonth = DateTime.DaysInMonth(budget.Year, budget.Month);
                 var effectiveDays = CalculateDays(period.Start,
-                    new DateTime(period.Start.Year, period.Start.Month, daysInBudgetMonth));
-                return budget.Amount / daysInBudgetMonth * effectiveDays;
+                    new DateTime(period.Start.Year, period.Start.Month, budget.DaysInMonth()));
+                return budget.DailyAmount() * effectiveDays;
             }
 
             return 0;
