@@ -34,14 +34,24 @@ namespace BudgetCalculator
                         totalAmount += budgetModel.Amount;
                     }
                 }
-                var amountOfFirstMonth = AmountOfFirstMonth(period, budgets.FirstOrDefault(model => model.YearMonth == period.Start.ToString("yyyyMM")));
+                var amountOfFirstMonth = AmountOfFirstMonth(period, budgets.FirstOrDefault(b => IsFirstMonth(b, period)));
                 totalAmount += amountOfFirstMonth;
 
-                var amountOfLastMonth = AmountOfLastMonth(period, budgets.FirstOrDefault(model => model.YearMonth == period.End.ToString("yyyyMM")));
+                var amountOfLastMonth = AmountOfLastMonth(period, budgets.FirstOrDefault(b => IsLastMonth(b, period)));
                 totalAmount += amountOfLastMonth;
 
                 return totalAmount;
             }
+        }
+
+        private static bool IsLastMonth(BudgetModel model, Period period)
+        {
+            return model.YearMonth == period.End.ToString("yyyyMM");
+        }
+
+        private static bool IsFirstMonth(BudgetModel model, Period period)
+        {
+            return model.YearMonth == period.Start.ToString("yyyyMM");
         }
 
         private decimal AmountOfSingleMonth(Period period, List<BudgetModel> budgets)
