@@ -24,11 +24,7 @@ namespace BudgetCalculator
             {
                 if (IsMiddleMonth(period, budgetModel))
                 {
-                    DateTime firstDayOfBudgetMonth = DateTime.ParseExact(budgetModel.YearMonth + "01", "yyyyMMdd", null);
-                    if (firstDayOfBudgetMonth > period.Start && firstDayOfBudgetMonth < period.End)
-                    {
-                        budget += budgetModel.Amount;
-                    }
+                    budget += budgetModel.Amount;
                 }
             }
 
