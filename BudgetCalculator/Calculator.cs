@@ -29,44 +29,17 @@ namespace BudgetCalculator
             {
                 foreach (var budget in budgets)
                 {
-                    var effectiveDays = EffectiveDays(period, budget);
-                    totalAmount += budget.DailyAmount() * effectiveDays;
+                    var overlappingDays = period.OverlappingDays(budget);
+                    totalAmount += budget.DailyAmount() * overlappingDays;
                 }
 
                 return totalAmount;
             }
         }
 
-        private int EffectiveDays(Period period, BudgetModel budget)
-        {
-            var effectiveStart = period.Start;
-            if (budget.FirstDay() > period.Start)
-            {
-                effectiveStart = budget.FirstDay();
-            }
-
-            var effectiveEnd = period.End;
-            if (budget.LastDay() < period.End)
-            {
-                effectiveEnd = budget.LastDay();
-            }
-
-            return Days(effectiveStart, effectiveEnd);
-        }
-
-        private static bool IsLastMonth(BudgetModel model, Period period)
-        {
-            return model.YearMonth == period.End.ToString("yyyyMM");
-        }
-
-        private static bool IsFirstMonth(BudgetModel model, Period period)
-        {
-            return model.YearMonth == period.Start.ToString("yyyyMM");
-        }
-
         private decimal AmountOfSingleMonth(Period period, List<BudgetModel> budgets)
         {
-            var days = Days(period.Start, period.End);
+            var days = Period.Days(period.Start, period.End);
             var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
             var budgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });
             if (!budgetModels.Any())
@@ -75,11 +48,6 @@ namespace BudgetCalculator
             }
 
             return budgetModels.First().Amount / totalDaysInAMonth * days;
-        }
-
-        private int Days(DateTime start, DateTime end)
-        {
-            return (end - start).Days + 1;
         }
     }
 }
