@@ -29,30 +29,26 @@ namespace BudgetCalculator
             {
                 foreach (var budget in budgets)
                 {
+                    var effectiveStart = period.Start;
+                    var effectiveEnd = period.End;
                     if (IsFirstMonth(budget, period))
                     {
-                        var effectiveStart = period.Start;
-                        var effectiveEnd = budget.LastDay();
-                        var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
-                        var effectiveAmount = budget.DailyAmount() * effectiveDays;
-                        totalAmount += effectiveAmount;
+                        effectiveStart = period.Start;
+                        effectiveEnd = budget.LastDay();
                     }
                     else if (IsLastMonth(budget, period))
                     {
-                        var effectiveStart = budget.FirstDay();
-                        var effectiveEnd = period.End;
-                        var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
-                        var effectiveAmount = budget.DailyAmount() * effectiveDays;
-                        totalAmount += effectiveAmount;
+                        effectiveStart = budget.FirstDay();
+                        effectiveEnd = period.End;
                     }
                     else
                     {
-                        var effectiveStart = budget.FirstDay();
-                        var effectiveEnd = budget.LastDay();
-                        var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
-                        var effectiveAmount = budget.DailyAmount() * effectiveDays;
-                        totalAmount += effectiveAmount;
+                        effectiveStart = budget.FirstDay();
+                        effectiveEnd = budget.LastDay();
                     }
+                    var effectiveDays = CalculateDays(effectiveStart, effectiveEnd);
+                    var effectiveAmount = budget.DailyAmount() * effectiveDays;
+                    totalAmount += effectiveAmount;
                 }
 
                 return totalAmount;
