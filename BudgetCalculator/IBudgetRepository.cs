@@ -62,5 +62,10 @@ namespace BudgetCalculator
             var periodFromBudget = new Period(FirstDay(), LastDay());
             return periodFromBudget;
         }
+
+        public decimal EffectiveTotalAmount(Period period)
+        {
+            return DailyAmount() * period.OverlappingDays(CreatePeriod());
+        }
     }
 }
