@@ -21,9 +21,9 @@ namespace BudgetCalculator
         public void CrossMonth_20170201_20190701()
         {
             GivenBudgets(
-                new BudgetModel { YearMonth = "201803", Budget = 310 },
-                new BudgetModel { YearMonth = "201804", Budget = 600 },
-                new BudgetModel { YearMonth = "201806", Budget = 1200 });
+                new BudgetModel { YearMonth = "201803", Amount = 310 },
+                new BudgetModel { YearMonth = "201804", Amount = 600 },
+                new BudgetModel { YearMonth = "201806", Amount = 1200 });
 
             TotalAmountShouldBe(2110, "2017-02-01", "2019-07-01");
         }
@@ -31,14 +31,14 @@ namespace BudgetCalculator
         [TestMethod]
         public void CrossMonth_20180201_20180301()
         {
-            GivenBudgets(new BudgetModel { YearMonth = "201803", Budget = 310 });
+            GivenBudgets(new BudgetModel { YearMonth = "201803", Amount = 310 });
             TotalAmountShouldBe(10, "2018-02-01", "2018-03-01");
         }
 
         [TestMethod]
         public void CrossMonth_20180201_20180302()
         {
-            GivenBudgets(new BudgetModel { YearMonth = "201803", Budget = 310 });
+            GivenBudgets(new BudgetModel { YearMonth = "201803", Amount = 310 });
             TotalAmountShouldBe(20, "2018-02-01", "2018-03-02");
         }
 
@@ -46,8 +46,8 @@ namespace BudgetCalculator
         public void CrossMonth_20180201_20180401()
         {
             GivenBudgets(
-                new BudgetModel { YearMonth = "201803", Budget = 310 },
-                new BudgetModel { YearMonth = "201804", Budget = 600 });
+                new BudgetModel { YearMonth = "201803", Amount = 310 },
+                new BudgetModel { YearMonth = "201804", Amount = 600 });
 
             TotalAmountShouldBe(330, "2018-02-01", "2018-04-01");
         }
@@ -56,9 +56,9 @@ namespace BudgetCalculator
         public void CrossMonth_20180201_20180615()
         {
             GivenBudgets(
-                new BudgetModel { YearMonth = "201803", Budget = 310 },
-                new BudgetModel { YearMonth = "201804", Budget = 600 },
-                new BudgetModel { YearMonth = "201806", Budget = 1200 });
+                new BudgetModel { YearMonth = "201803", Amount = 310 },
+                new BudgetModel { YearMonth = "201804", Amount = 600 },
+                new BudgetModel { YearMonth = "201806", Amount = 1200 });
 
             TotalAmountShouldBe(1510, "2018-02-01", "2018-06-15");
         }
@@ -67,9 +67,9 @@ namespace BudgetCalculator
         public void CrossMonth_20180201_20180701()
         {
             GivenBudgets(
-                new BudgetModel { YearMonth = "201803", Budget = 310 },
-                new BudgetModel { YearMonth = "201804", Budget = 600 },
-                new BudgetModel { YearMonth = "201806", Budget = 1200 });
+                new BudgetModel { YearMonth = "201803", Amount = 310 },
+                new BudgetModel { YearMonth = "201804", Amount = 600 },
+                new BudgetModel { YearMonth = "201806", Amount = 1200 });
 
             TotalAmountShouldBe(2110, "2018-02-01", "2018-07-01");
         }
@@ -78,9 +78,9 @@ namespace BudgetCalculator
         public void CrossMonth_20180331_20180601()
         {
             GivenBudgets(
-                new BudgetModel { YearMonth = "201803", Budget = 310 },
-                new BudgetModel { YearMonth = "201804", Budget = 600 },
-                new BudgetModel { YearMonth = "201806", Budget = 1200 });
+                new BudgetModel { YearMonth = "201803", Amount = 310 },
+                new BudgetModel { YearMonth = "201804", Amount = 600 },
+                new BudgetModel { YearMonth = "201806", Amount = 1200 });
 
             TotalAmountShouldBe(650, "2018-03-31", "2018-06-01");
         }
@@ -88,7 +88,7 @@ namespace BudgetCalculator
         [TestMethod]
         public void OneDay()
         {
-            GivenBudgets(new BudgetModel { YearMonth = "201804", Budget = 600 });
+            GivenBudgets(new BudgetModel { YearMonth = "201804", Amount = 600 });
             TotalAmountShouldBe(expected: 20m, start: "2018-04-01", end: "2018-04-01");
         }
 
@@ -96,8 +96,8 @@ namespace BudgetCalculator
         public void OneMonth()
         {
             GivenBudgets(
-                new BudgetModel { YearMonth = "201803", Budget = 310 },
-                new BudgetModel { YearMonth = "201804", Budget = 600 });
+                new BudgetModel { YearMonth = "201803", Amount = 310 },
+                new BudgetModel { YearMonth = "201804", Amount = 600 });
 
             TotalAmountShouldBe(600, "2018-04-01", "2018-04-30");
         }
@@ -105,14 +105,14 @@ namespace BudgetCalculator
         [TestMethod]
         public void OutOfRange()
         {
-            GivenBudgets(new BudgetModel { YearMonth = "201803", Budget = 310 });
+            GivenBudgets(new BudgetModel { YearMonth = "201803", Amount = 310 });
             TotalAmountShouldBe(0, "2018-01-01", "2018-01-02");
         }
 
         [TestMethod]
         public void TwoDaysInAMonth()
         {
-            GivenBudgets(new BudgetModel { YearMonth = "201804", Budget = 600 });
+            GivenBudgets(new BudgetModel { YearMonth = "201804", Amount = 600 });
             TotalAmountShouldBe(40, "2018-04-01", "2018-04-02");
         }
 

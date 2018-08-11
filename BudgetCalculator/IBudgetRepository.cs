@@ -26,6 +26,6 @@ namespace BudgetCalculator
     {
         public string YearMonth { get; set; }
 
-        public decimal Budget { get; set; }
+        public decimal Amount { get; set; }
     }
 }
