@@ -61,13 +61,13 @@ namespace BudgetCalculator
         {
             var days = CalculateDays(period);
             var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
-            var budgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });
-            if (!budgetModels.Any())
+            var budgetModels = budgets.FirstOrDefault(model => model.YearMonth == period.Start.ToString("yyyyMM"));
+            if (budgetModels == null)
             {
                 return 0;
             }
 
-            return budgetModels.First().Budget / totalDaysInAMonth * days;
+            return budgetModels.Budget / totalDaysInAMonth * days;
         }
 
         private decimal LastMonthBudget(Period period, List<BudgetModel> budgets)
@@ -75,10 +75,10 @@ namespace BudgetCalculator
             var lastMonthBudget = 0m;
             var endDays = CalculateDays(new Period(new DateTime(period.End.Year, period.End.Month, 1), period.End));
             var totalEndDaysInAMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
-            var endBudgetModels = budgets.Where(model => { return model.YearMonth == period.End.ToString("yyyyMM"); });
-            if (endBudgetModels.Any())
+            var endBudgetModels = budgets.FirstOrDefault(b => b.YearMonth == period.End.ToString("yyyyMM"));
+            if (endBudgetModels != null)
             {
-                lastMonthBudget = endBudgetModels.First().Budget / totalEndDaysInAMonth * endDays;
+                lastMonthBudget = endBudgetModels.Budget / totalEndDaysInAMonth * endDays;
             }
 
             return lastMonthBudget;
@@ -90,10 +90,10 @@ namespace BudgetCalculator
             var totalStartDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
             var startDays = CalculateDays(new Period(period.Start,
                 new DateTime(period.Start.Year, period.Start.Month, totalStartDaysInAMonth)));
-            var startBudgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });
-            if (startBudgetModels.Any())
+            var startBudgetModels = budgets.FirstOrDefault(b => b.YearMonth == period.Start.ToString("yyyyMM"));
+            if (startBudgetModels!=null)
             {
-                firstMonthBudget = startBudgetModels.First().Budget / totalStartDaysInAMonth * startDays;
+                firstMonthBudget = startBudgetModels.Budget / totalStartDaysInAMonth * startDays;
             }
 
             return firstMonthBudget;
