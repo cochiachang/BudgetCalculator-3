@@ -35,11 +35,7 @@ namespace BudgetCalculator
                 if (budgetModel.YearMonth != start.ToString("yyyyMM") &&
                     budgetModel.YearMonth != end.ToString("yyyyMM"))
                 {
-                    DateTime firstDayOfBudgetMonth = DateTime.ParseExact(budgetModel.YearMonth + "01", "yyyyMMdd", null);
-                    if (firstDayOfBudgetMonth > start && firstDayOfBudgetMonth < end)
-                    {
-                        budget += budgetModel.Budget;
-                    }
+                    budget += budgetModel.Budget;
                 }
             }
 
