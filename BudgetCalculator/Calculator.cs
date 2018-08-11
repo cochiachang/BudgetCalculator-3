@@ -54,6 +54,11 @@ namespace BudgetCalculator
                 return budget;
             }
 
+            return SingleMonthBudget(period, budgets);
+        }
+
+        private decimal SingleMonthBudget(Period period, List<BudgetModel> budgets)
+        {
             var days = CalculateDays(period);
             var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
             var budgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });
