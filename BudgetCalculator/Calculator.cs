@@ -34,7 +34,7 @@ namespace BudgetCalculator
                         totalAmount += budgetModel.Amount;
                     }
                 }
-                var amountOfFirstMonth = AmountOfFirstMonth(period, budgets);
+                var amountOfFirstMonth = AmountOfFirstMonth(period, budgets.FirstOrDefault(model => model.YearMonth == period.Start.ToString("yyyyMM")));
                 totalAmount += amountOfFirstMonth;
 
                 var amountOfLastMonth = AmountOfLastMonth(period, budgets);
@@ -71,17 +71,16 @@ namespace BudgetCalculator
             return amountOfLastMonth;
         }
 
-        private decimal AmountOfFirstMonth(Period period, List<BudgetModel> budgets)
+        private decimal AmountOfFirstMonth(Period period, BudgetModel budget)
         {
             var amountOfFirstMonth = 0m;
             var totalStartDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
             var startDays = CalculateDays(period.Start,
                 new DateTime(period.Start.Year, period.Start.Month, totalStartDaysInAMonth));
-            var startBudgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });
 
-            if (startBudgetModels.Any())
+            if (budget != null)
             {
-                amountOfFirstMonth = startBudgetModels.First().Amount / totalStartDaysInAMonth * startDays;
+                amountOfFirstMonth = budget.Amount / totalStartDaysInAMonth * startDays;
             }
 
             return amountOfFirstMonth;
