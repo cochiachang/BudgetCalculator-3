@@ -61,9 +61,8 @@ namespace BudgetCalculator
         {
             if (budget != null)
             {
-                var endDays = CalculateDays(new DateTime(period.End.Year, period.End.Month, 1), period.End);
-                var totalEndDaysInAMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
-                return budget.Amount / totalEndDaysInAMonth * endDays;
+                var effectiveDays = CalculateDays(new DateTime(period.End.Year, period.End.Month, 1), period.End);
+                return budget.DailyAmount() * effectiveDays;
             }
 
             return 0;
