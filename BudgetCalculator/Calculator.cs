@@ -28,7 +28,7 @@ namespace BudgetCalculator
                 }
             }
 
-            if (period.Start.ToString("yyyyMM") != period.End.ToString("yyyyMM"))
+            if (period.IsCrossMonth())
             {
                 var totalStartDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
                 var startDays = CalculateDays(period.Start, new DateTime(period.Start.Year, period.Start.Month, totalStartDaysInAMonth));
