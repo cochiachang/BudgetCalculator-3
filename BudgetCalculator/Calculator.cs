@@ -21,16 +21,19 @@ namespace BudgetCalculator
 
             var totalAmount = 0M;
 
-            foreach (var budgetModel in budgets)
+            if (period.IsSingleMonth())
             {
-                if (IsMiddleMonth(period, budgetModel))
-                {
-                    totalAmount += budgetModel.Amount;
-                }
+                return AmountOfSingleMonth(period, budgets);
             }
-
-            if (period.IsCrossMonth())
+            else
             {
+                foreach (var budgetModel in budgets)
+                {
+                    if (IsMiddleMonth(period, budgetModel))
+                    {
+                        totalAmount += budgetModel.Amount;
+                    }
+                }
                 var amountOfFirstMonth = AmountOfFirstMonth(period, budgets);
                 totalAmount += amountOfFirstMonth;
 
@@ -39,7 +42,10 @@ namespace BudgetCalculator
 
                 return totalAmount;
             }
+        }
 
+        private decimal AmountOfSingleMonth(Period period, List<BudgetModel> budgets)
+        {
             var days = CalculateDays(period.Start, period.End);
             var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
             var budgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });

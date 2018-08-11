@@ -13,9 +13,9 @@ namespace BudgetCalculator
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
 
-        public bool IsCrossMonth()
+        public bool IsSingleMonth()
         {
-            return Start.ToString("yyyyMM") != End.ToString("yyyyMM");
+            return Start.ToString("yyyyMM") == End.ToString("yyyyMM");
         }
     }
 }
