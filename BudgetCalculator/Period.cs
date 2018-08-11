@@ -13,14 +13,9 @@ namespace BudgetCalculator
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
 
-        public bool isCrossMonth()
+        public bool IsSingleMonth()
         {
-            return Start.ToString("yyyyMM") != End.ToString("yyyyMM");
-        }
-
-        public bool idSingleMonth(BudgetModel model)
-        {
-            return model.YearMonth == Start.ToString("yyyyMM");
+            return Start.ToString("yyyyMM") == End.ToString("yyyyMM");
         }
     }
 }

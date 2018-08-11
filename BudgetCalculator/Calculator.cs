@@ -20,7 +20,7 @@ namespace BudgetCalculator
 
             var totalAmount = 0M;
 
-            if (period.isCrossMonth())
+            if (!period.IsSingleMonth())
             {
                 foreach (var budget in budgets)
                 {
@@ -41,7 +41,7 @@ namespace BudgetCalculator
                 return totalAmount;
             }
 
-            return SingleMonthBudget(period, budgets.FirstOrDefault(model => period.idSingleMonth(model)));
+            return SingleMonthBudget(period, budgets.FirstOrDefault(model => period.IsSingleMonth()));
         }
 
         private static bool IsLastMonth(BudgetModel b, Period period)
