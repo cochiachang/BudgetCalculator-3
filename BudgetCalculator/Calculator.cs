@@ -26,6 +26,7 @@ namespace BudgetCalculator
 
         public decimal CalculateBudget(DateTime start, DateTime end)
         {
+            var period = new Period(start, end);
             var budgets = _budgetRepository.GetAll();
 
             var budget = 0M;
@@ -60,7 +61,7 @@ namespace BudgetCalculator
                 return budget;
             }
 
-            var days = CalculateDays(new Period(start, end));
+            var days = CalculateDays(period);
             var totalDaysInAMonth = DateTime.DaysInMonth(start.Year, start.Month);
             var budgetModels = budgets.Where(model => { return model.YearMonth == start.ToString("yyyyMM"); });
             if (!budgetModels.Any())
