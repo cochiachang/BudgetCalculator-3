@@ -41,15 +41,7 @@ namespace BudgetCalculator
             {
                 budget += FirstMonthBudget(period, budgets);
 
-                
-                var endDays = CalculateDays(new Period(new DateTime(period.End.Year, period.End.Month, 1), period.End));
-                var totalEndDaysInAMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
-                var endBudgetModels = budgets.Where(model => { return model.YearMonth == period.End.ToString("yyyyMM"); });
-                if (endBudgetModels.Any())
-                {
-                    budget += endBudgetModels.First().Budget / totalEndDaysInAMonth * endDays;
-                }
-
+                budget += LastMonthBudget(period, budgets);
 
                 foreach (var budgetModel in budgets)
                 {
@@ -71,6 +63,20 @@ namespace BudgetCalculator
             }
 
             return budgetModels.First().Budget / totalDaysInAMonth * days;
+        }
+
+        private decimal LastMonthBudget(Period period, List<BudgetModel> budgets)
+        {
+            var lastMonthBudget = 0m;
+            var endDays = CalculateDays(new Period(new DateTime(period.End.Year, period.End.Month, 1), period.End));
+            var totalEndDaysInAMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
+            var endBudgetModels = budgets.Where(model => { return model.YearMonth == period.End.ToString("yyyyMM"); });
+            if (endBudgetModels.Any())
+            {
+                lastMonthBudget = endBudgetModels.First().Budget / totalEndDaysInAMonth * endDays;
+            }
+
+            return lastMonthBudget;
         }
 
         private decimal FirstMonthBudget(Period period, List<BudgetModel> budgets)
