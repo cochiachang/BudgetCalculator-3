@@ -13,6 +13,11 @@ namespace BudgetCalculator
 
         public DateTime Start { get; private set; }
         public DateTime End { get; private set; }
+
+        public bool isCrossMonth()
+        {
+            return Start.ToString("yyyyMM") != End.ToString("yyyyMM");
+        }
     }
 
     public class Calculator
@@ -31,39 +36,39 @@ namespace BudgetCalculator
 
             var budget = 0M;
 
-            foreach (var budgetModel in budgets)
+            if (period.isCrossMonth())
             {
-                if (budgetModel.YearMonth != start.ToString("yyyyMM") &&
-                    budgetModel.YearMonth != end.ToString("yyyyMM"))
-                {
-                    budget += budgetModel.Budget;
-                }
-            }
-
-            if (start.ToString("yyyyMM") != end.ToString("yyyyMM"))
-            {
-                var totalStartDaysInAMonth = DateTime.DaysInMonth(start.Year, start.Month);
-                var startDays = CalculateDays(new Period(start, new DateTime(start.Year, start.Month, totalStartDaysInAMonth)));
-                var startBudgetModels = budgets.Where(model => { return model.YearMonth == start.ToString("yyyyMM"); });
+                var totalStartDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
+                var startDays = CalculateDays(new Period(period.Start, new DateTime(period.Start.Year, period.Start.Month, totalStartDaysInAMonth)));
+                var startBudgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });
                 if (startBudgetModels.Any())
                 {
                     budget += startBudgetModels.First().Budget / totalStartDaysInAMonth * startDays;
                 }
 
-                var endDays = CalculateDays(new Period(new DateTime(end.Year, end.Month, 1), end));
-                var totalEndDaysInAMonth = DateTime.DaysInMonth(end.Year, end.Month);
-                var endBudgetModels = budgets.Where(model => { return model.YearMonth == end.ToString("yyyyMM"); });
+                var endDays = CalculateDays(new Period(new DateTime(period.End.Year, period.End.Month, 1), period.End));
+                var totalEndDaysInAMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
+                var endBudgetModels = budgets.Where(model => { return model.YearMonth == period.End.ToString("yyyyMM"); });
                 if (endBudgetModels.Any())
                 {
                     budget += endBudgetModels.First().Budget / totalEndDaysInAMonth * endDays;
                 }
 
+
+                foreach (var budgetModel in budgets)
+                {
+                    if (budgetModel.YearMonth != period.Start.ToString("yyyyMM") &&
+                        budgetModel.YearMonth != period.End.ToString("yyyyMM"))
+                    {
+                        budget += budgetModel.Budget;
+                    }
+                }
                 return budget;
             }
 
             var days = CalculateDays(period);
-            var totalDaysInAMonth = DateTime.DaysInMonth(start.Year, start.Month);
-            var budgetModels = budgets.Where(model => { return model.YearMonth == start.ToString("yyyyMM"); });
+            var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
+            var budgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });
             if (!budgetModels.Any())
             {
                 return 0;
