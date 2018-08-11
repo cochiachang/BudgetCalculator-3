@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67fbbff7-d58f-4994-aa70-b08e1956c7d8" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/BudgetCalculator/BudgetModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BudgetCalculator/BudgetRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BudgetCalculator/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BudgetCalculator/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BudgetCalculator/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BudgetCalculator/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BudgetCalculator/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BudgetCalculator/riderModule.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BudgetCalculator/obj/BudgetCalculator.csproj.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetCalculator/obj/BudgetCalculator.csproj.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BudgetCalculator/obj/BudgetCalculator.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetCalculator/obj/BudgetCalculator.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BudgetCalculator/obj/BudgetCalculator.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetCalculator/obj/BudgetCalculator.csproj.nuget.g.targets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BudgetCalculator/obj/Debug/netcoreapp2.0/BudgetCalculator.Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetCalculator/obj/Debug/netcoreapp2.0/BudgetCalculator.Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BudgetCalculator/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetCalculator/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BudgetCalculator/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetCalculator/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BudgetCalculator/BudgetCalculator.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetCalculator/BudgetCalculator.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BudgetCalculator/IBudgetRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/BudgetCalculator/IBudgetRepository.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,6 +22,10 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
               <caret line="8" selection-start-line="8" selection-end-line="8" />
+              <folding>
+                <marker date="1533966511316" expanded="true" signature="61:152" ph="{...}" />
+                <marker date="1533966511316" expanded="true" signature="102:150" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -33,8 +33,40 @@
       <file leaf-file-name="BudgetCalculatorTests.cs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BudgetCalculator/BudgetCalculatorTests.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1920">
-              <caret line="128" selection-start-line="128" selection-end-line="128" />
+            <state relative-caret-position="155">
+              <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
+              <folding>
+                <marker date="1533965430839" expanded="false" signature="6:70" ph="..." />
+                <marker date="1533965430839" expanded="true" signature="98:5356" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="157:5354" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="288:401" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="446:688" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="724:980" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="810:968" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="860:954" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="1016:1272" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="1102:1260" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="1152:1246" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="1310:1710" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="1396:1698" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="1446:1540" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="1590:1684" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="1750:2295" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="1836:2283" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="1886:1980" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="2030:2124" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="2174:2269" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="2342:2587" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="2641:2882" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="2931:3171" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="3238:3479" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="3546:3787" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="3854:4097" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="4164:4410" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="4477:4723" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="4790:5036" ph="{...}" />
+                <marker date="1533965430839" expanded="true" signature="5103:5348" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -42,14 +74,22 @@
       <file leaf-file-name="Calculator.cs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BudgetCalculator/Calculator.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="10" column="9" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+            <state relative-caret-position="350">
+              <caret line="65" column="27" selection-start-line="65" selection-start-column="27" selection-end-line="65" selection-end-column="27" />
               <folding>
-                <marker date="1533962968021" expanded="false" signature="6:32" ph="..." />
-                <marker date="1533962968021" expanded="true" signature="60:530" ph="{...}" />
-                <marker date="1533962968021" expanded="true" signature="90:528" ph="{...}" />
-                <marker date="1533962968021" expanded="true" signature="212:282" ph="{...}" />
-                <marker date="1533962968021" expanded="true" signature="352:522" ph="{...}" />
+                <marker date="1533965198854" expanded="false" signature="6:32" ph="..." />
+                <marker date="1533965198854" expanded="true" signature="60:2676" ph="{...}" />
+                <marker date="1533965198854" expanded="true" signature="90:2674" ph="{...}" />
+                <marker date="1533965198854" expanded="true" signature="214:284" ph="{...}" />
+                <marker date="1533965198854" expanded="true" signature="354:2540" ph="{...}" />
+                <marker date="1533965198854" expanded="true" signature="498:1010" ph="{...}" />
+                <marker date="1533965198854" expanded="true" signature="654:996" ph="{...}" />
+                <marker date="1533965198854" expanded="true" signature="880:978" ph="{...}" />
+                <marker date="1533965198854" expanded="true" signature="1079:2117" ph="{...}" />
+                <marker date="1533965198854" expanded="true" signature="1468:1605" ph="{...}" />
+                <marker date="1533965198854" expanded="true" signature="1940:2071" ph="{...}" />
+                <marker date="1533965198854" expanded="true" signature="2400:2454" ph="{...}" />
+                <marker date="1533965198854" expanded="true" signature="2605:2668" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -68,6 +108,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/BudgetCalculator/BudgetModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BudgetCalculator/BudgetRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BudgetCalculator/IBudgetRepository.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BudgetCalculator/BudgetCalculatorTests.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BudgetCalculator/Calculator.cs" root0="FORCE_HIGHLIGHTING" />
@@ -78,6 +120,8 @@
         <option value="$PROJECT_DIR$/BudgetCalculator/IBudgetRepository.cs" />
         <option value="$PROJECT_DIR$/BudgetCalculator/BudgetCalculatorTests.cs" />
         <option value="$PROJECT_DIR$/BudgetCalculator/Calculator.cs" />
+        <option value="$PROJECT_DIR$/BudgetCalculator/BudgetModel.cs" />
+        <option value="$PROJECT_DIR$/BudgetCalculator/BudgetRepository.cs" />
       </list>
     </option>
   </component>
@@ -95,13 +139,14 @@
     <option name="width" value="1440" />
     <option name="height" value="829" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="SolutionExplorer" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="SolutionExplorer">
         <subPane>
           <expand>
@@ -120,6 +165,7 @@
         <option name="show-file-system" value="false" />
         <option name="show-all-items" value="false" />
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -150,11 +196,12 @@
       <updated>1533885861818</updated>
       <workItem from="1533885863176" duration="8015000" />
       <workItem from="1533965646224" duration="61000" />
+      <workItem from="1533966303265" duration="369000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8076000" />
+    <option name="totallyTimeSpent" value="8445000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -166,20 +213,23 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="829" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="829" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Errors In Solution" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Unit Tests" order="7" visible="true" weight="0.329235" />
+      <window_info anchor="bottom" id="Unit Tests" order="7" weight="0.329235" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="NuGet" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2160229" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21888413" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.3293348" />
       <window_info anchor="right" id="Database" order="3" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.329235" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3991276" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -189,8 +239,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.3293348" />
-      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,6 +258,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <marker date="1533966511316" expanded="true" signature="61:152" ph="{...}" />
+            <marker date="1533966511316" expanded="true" signature="102:150" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -217,26 +269,63 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1920">
           <caret line="128" selection-start-line="128" selection-end-line="128" />
+          <folding>
+            <marker date="1533965430839" expanded="false" signature="6:70" ph="..." />
+            <marker date="1533965430839" expanded="true" signature="98:5356" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="157:5354" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="288:401" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="446:688" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="724:980" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="810:968" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="860:954" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1016:1272" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1102:1260" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1152:1246" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1310:1710" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1396:1698" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1446:1540" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1590:1684" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1750:2295" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1836:2283" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1886:1980" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="2030:2124" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="2174:2269" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="2342:2587" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="2641:2882" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="2931:3171" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="3238:3479" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="3546:3787" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="3854:4097" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="4164:4410" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="4477:4723" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="4790:5036" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="5103:5348" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/BudgetCalculator/Calculator.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+        <state relative-caret-position="135">
+          <caret line="10" column="9" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
           <folding>
-            <marker date="1533962968021" expanded="false" signature="6:32" ph="..." />
-            <marker date="1533962968021" expanded="true" signature="60:530" ph="{...}" />
-            <marker date="1533962968021" expanded="true" signature="90:528" ph="{...}" />
-            <marker date="1533962968021" expanded="true" signature="212:282" ph="{...}" />
-            <marker date="1533962968021" expanded="true" signature="352:522" ph="{...}" />
+            <marker date="1533965198854" expanded="false" signature="6:32" ph="..." />
+            <marker date="1533965198854" expanded="true" signature="60:2676" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="90:2674" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="214:284" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="354:2540" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="498:1010" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="654:996" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="880:978" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="1079:2117" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="1468:1605" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="1940:2071" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="2400:2454" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="2605:2668" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7BAE8156-CB91-4ADB-B536-E7841848B4C3/0c/4b7dece8/BaseRunTests.cs" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1467136A-64E8-49A8-8131-500BF7FED664/73/2b315b5e/PlatformServiceProvider.cs" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6D85C908-D676-49C8-A469-C19A74522F33/7b/c071465a/DateTime.cs" />
     <entry file="file://$PROJECT_DIR$/BudgetCalculator/IBudgetRepository.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -253,14 +342,119 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BudgetCalculator/Calculator.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="10" column="9" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+        <state relative-caret-position="330">
+          <caret line="22" column="1" lean-forward="true" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
           <folding>
-            <marker date="1533962968021" expanded="false" signature="6:32" ph="..." />
-            <marker date="1533962968021" expanded="true" signature="60:530" ph="{...}" />
-            <marker date="1533962968021" expanded="true" signature="90:528" ph="{...}" />
-            <marker date="1533962968021" expanded="true" signature="212:282" ph="{...}" />
-            <marker date="1533962968021" expanded="true" signature="352:522" ph="{...}" />
+            <marker date="1533965198854" expanded="false" signature="6:32" ph="..." />
+            <marker date="1533965198854" expanded="true" signature="60:2676" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="90:2674" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="214:284" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="354:2540" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="498:1010" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="654:996" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="880:978" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="1079:2117" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="1468:1605" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="1940:2071" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="2400:2454" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="2605:2668" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7BAE8156-CB91-4ADB-B536-E7841848B4C3/0c/4b7dece8/BaseRunTests.cs" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1467136A-64E8-49A8-8131-500BF7FED664/73/2b315b5e/PlatformServiceProvider.cs" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6D85C908-D676-49C8-A469-C19A74522F33/7b/c071465a/DateTime.cs" />
+    <entry file="file://$PROJECT_DIR$/BudgetCalculator/BudgetModel.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <marker date="1533966378040" expanded="true" signature="26:162" ph="{...}" />
+            <marker date="1533966378040" expanded="true" signature="57:160" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BudgetCalculator/BudgetRepository.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <marker date="1533966420623" expanded="true" signature="61:373" ph="{...}" />
+            <marker date="1533966420623" expanded="true" signature="117:371" ph="{...}" />
+            <marker date="1533966420623" expanded="true" signature="209:257" ph="{...}" />
+            <marker date="1533966420623" expanded="true" signature="315:365" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BudgetCalculator/IBudgetRepository.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <marker date="1533966511316" expanded="true" signature="61:152" ph="{...}" />
+            <marker date="1533966511316" expanded="true" signature="102:150" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BudgetCalculator/BudgetCalculatorTests.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
+          <folding>
+            <marker date="1533965430839" expanded="false" signature="6:70" ph="..." />
+            <marker date="1533965430839" expanded="true" signature="98:5356" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="157:5354" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="288:401" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="446:688" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="724:980" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="810:968" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="860:954" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1016:1272" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1102:1260" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1152:1246" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1310:1710" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1396:1698" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1446:1540" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1590:1684" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1750:2295" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1836:2283" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="1886:1980" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="2030:2124" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="2174:2269" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="2342:2587" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="2641:2882" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="2931:3171" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="3238:3479" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="3546:3787" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="3854:4097" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="4164:4410" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="4477:4723" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="4790:5036" ph="{...}" />
+            <marker date="1533965430839" expanded="true" signature="5103:5348" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BudgetCalculator/Calculator.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="65" column="27" selection-start-line="65" selection-start-column="27" selection-end-line="65" selection-end-column="27" />
+          <folding>
+            <marker date="1533965198854" expanded="false" signature="6:32" ph="..." />
+            <marker date="1533965198854" expanded="true" signature="60:2676" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="90:2674" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="214:284" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="354:2540" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="498:1010" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="654:996" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="880:978" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="1079:2117" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="1468:1605" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="1940:2071" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="2400:2454" ph="{...}" />
+            <marker date="1533965198854" expanded="true" signature="2605:2668" ph="{...}" />
           </folding>
         </state>
       </provider>
