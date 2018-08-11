@@ -29,16 +29,21 @@ namespace BudgetCalculator
             {
                 foreach (var budgetModel in budgets)
                 {
-                    if (IsMiddleMonth(period, budgetModel))
+                    if (IsFirstMonth(budgetModel, period))
+                    {
+                        var amountOfFirstMonth = AmountOfFirstMonth(period, budgets.FirstOrDefault(b => IsFirstMonth(b, period)));
+                        totalAmount += amountOfFirstMonth;
+                    }
+                    else if (IsLastMonth(budgetModel, period))
+                    {
+                        var amountOfLastMonth = AmountOfLastMonth(period, budgets.FirstOrDefault(b => IsLastMonth(b, period)));
+                        totalAmount += amountOfLastMonth;
+                    }
+                    else
                     {
                         totalAmount += budgetModel.Amount;
                     }
                 }
-                var amountOfFirstMonth = AmountOfFirstMonth(period, budgets.FirstOrDefault(b => IsFirstMonth(b, period)));
-                totalAmount += amountOfFirstMonth;
-
-                var amountOfLastMonth = AmountOfLastMonth(period, budgets.FirstOrDefault(b => IsLastMonth(b, period)));
-                totalAmount += amountOfLastMonth;
 
                 return totalAmount;
             }
