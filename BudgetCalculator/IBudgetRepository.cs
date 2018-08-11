@@ -56,5 +56,11 @@ namespace BudgetCalculator
             var effectiveEnd = new DateTime(Year, Month, DaysInMonth());
             return effectiveEnd;
         }
+
+        public Period CreatePeriod()
+        {
+            var periodFromBudget = new Period(FirstDay(), LastDay());
+            return periodFromBudget;
+        }
     }
 }
