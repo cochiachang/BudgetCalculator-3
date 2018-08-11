@@ -16,25 +16,26 @@ namespace BudgetCalculator
         public decimal CalculateBudget(DateTime start, DateTime end)
         {
             var period = new Period(start, end);
-
             var budgets = _budgetRepository.GetAll();
 
             var totalAmount = 0M;
-
-            if (period.IsSingleMonth())
+            foreach (var budget in budgets)
             {
-                return AmountOfSingleMonth(period, budgets);
+                var overlappingDays = period.OverlappingDays(budget);
+                totalAmount += budget.DailyAmount() * overlappingDays;
             }
-            else
-            {
-                foreach (var budget in budgets)
-                {
-                    var overlappingDays = period.OverlappingDays(budget);
-                    totalAmount += budget.DailyAmount() * overlappingDays;
-                }
 
-                return totalAmount;
-            }
+            return totalAmount;
+        }
+
+        private static bool IsLastMonth(BudgetModel model, Period period)
+        {
+            return model.YearMonth == period.End.ToString("yyyyMM");
+        }
+
+        private static bool IsFirstMonth(BudgetModel model, Period period)
+        {
+            return model.YearMonth == period.Start.ToString("yyyyMM");
         }
 
         private decimal AmountOfSingleMonth(Period period, List<BudgetModel> budgets)
