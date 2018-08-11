@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BudgetCalculator
@@ -38,14 +39,9 @@ namespace BudgetCalculator
 
             if (period.isCrossMonth())
             {
-                var totalStartDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
-                var startDays = CalculateDays(new Period(period.Start, new DateTime(period.Start.Year, period.Start.Month, totalStartDaysInAMonth)));
-                var startBudgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });
-                if (startBudgetModels.Any())
-                {
-                    budget += startBudgetModels.First().Budget / totalStartDaysInAMonth * startDays;
-                }
+                budget += FirstMonthBudget(period, budgets);
 
+                
                 var endDays = CalculateDays(new Period(new DateTime(period.End.Year, period.End.Month, 1), period.End));
                 var totalEndDaysInAMonth = DateTime.DaysInMonth(period.End.Year, period.End.Month);
                 var endBudgetModels = budgets.Where(model => { return model.YearMonth == period.End.ToString("yyyyMM"); });
@@ -75,6 +71,21 @@ namespace BudgetCalculator
             }
 
             return budgetModels.First().Budget / totalDaysInAMonth * days;
+        }
+
+        private decimal FirstMonthBudget(Period period, List<BudgetModel> budgets)
+        {
+            var firstMonthBudget = 0m;
+            var totalStartDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
+            var startDays = CalculateDays(new Period(period.Start,
+                new DateTime(period.Start.Year, period.Start.Month, totalStartDaysInAMonth)));
+            var startBudgetModels = budgets.Where(model => { return model.YearMonth == period.Start.ToString("yyyyMM"); });
+            if (startBudgetModels.Any())
+            {
+                firstMonthBudget = startBudgetModels.First().Budget / totalStartDaysInAMonth * startDays;
+            }
+
+            return firstMonthBudget;
         }
 
         private int CalculateDays(Period period)
