@@ -47,6 +47,7 @@
     <Compile Include="BudgetRepository.cs" />
     <Compile Include="Calculator.cs" />
     <Compile Include="IBudgetRepository.cs" />
+    <Compile Include="Period.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
