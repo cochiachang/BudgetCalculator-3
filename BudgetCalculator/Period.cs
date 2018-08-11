@@ -23,31 +23,26 @@ namespace BudgetCalculator
             return (end - start).Days + 1;
         }
 
-        public int OverlappingDays(BudgetModel budget)
+        public int OverlappingDays(Period otherPeriod)
         {
-            if (HasNoOverlapping(budget))
+            if (End < otherPeriod.Start || Start > otherPeriod.End)
             {
                 return 0;
             }
 
-            var effectiveStart = this.Start;
-            if (budget.FirstDay() > this.Start)
+            var effectiveStart = Start;
+            if (otherPeriod.Start > Start)
             {
-                effectiveStart = budget.FirstDay();
+                effectiveStart = otherPeriod.Start;
             }
 
-            var effectiveEnd = this.End;
-            if (budget.LastDay() < this.End)
+            var effectiveEnd = End;
+            if (otherPeriod.End < End)
             {
-                effectiveEnd = budget.LastDay();
+                effectiveEnd = otherPeriod.End;
             }
 
-            return Period.Days(effectiveStart, effectiveEnd);
-        }
-
-        private bool HasNoOverlapping(BudgetModel budget)
-        {
-            return End < budget.FirstDay() || Start > budget.LastDay();
+            return Days(effectiveStart, effectiveEnd);
         }
     }
 }
