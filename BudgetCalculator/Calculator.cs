@@ -40,8 +40,11 @@ namespace BudgetCalculator
                 }
                 return totalAmount;
             }
+            else
+            {   
+                return SingleMonthBudget(period, budgets.FirstOrDefault(model => period.Start.ToString("yyyyMM") == model.YearMonth));
+            }
 
-            return SingleMonthBudget(period, budgets.FirstOrDefault(model => period.IsSingleMonth()));
         }
 
         private static bool IsLastMonth(BudgetModel b, Period period)
@@ -60,6 +63,7 @@ namespace BudgetCalculator
             {
                 return 0;
             }
+            
             var days = CalculateDays(period);
             var totalDaysInAMonth = DateTime.DaysInMonth(period.Start.Year, period.Start.Month);
 

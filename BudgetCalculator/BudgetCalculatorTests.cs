@@ -64,6 +64,11 @@ namespace BudgetCalculator
                 {
                     YearMonth = "201804",
                     Budget = 600
+                },
+                new BudgetModel
+                {
+                    YearMonth = "201812",
+                    Budget = 600
                 }
             });
         }
