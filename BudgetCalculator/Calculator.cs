@@ -32,8 +32,8 @@ namespace BudgetCalculator
                     {
                         totalAmount += LastMonthBudget(period, budget);
                     }
-                    if (budget.YearMonth != period.Start.ToString("yyyyMM") &&
-                        budget.YearMonth != period.End.ToString("yyyyMM"))
+                    if (budget.BudgetPeriod.Start >= period.Start &&
+                        budget.BudgetPeriod.End <= period.End)
                     {
                         totalAmount += budget.Budget;
                     }
