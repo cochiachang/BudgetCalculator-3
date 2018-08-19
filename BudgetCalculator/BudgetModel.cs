@@ -17,8 +17,14 @@ namespace BudgetCalculator
         {
             DateTime start = BudgetPeriod.Start > period.Start ? BudgetPeriod.Start : period.Start;
             DateTime end = BudgetPeriod.End < period.End ? BudgetPeriod.End : period.End;
-            
-            return (end - start).Days + 1;
+            if (end >= start)
+            {
+                return (end - start).Days + 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public Period BudgetPeriod => new Period(new DateTime(Year,Month,1), new DateTime(Year,Month,DaysInMonth()));
